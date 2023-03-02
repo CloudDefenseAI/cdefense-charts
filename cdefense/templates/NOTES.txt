@@ -1,0 +1,31 @@
+{{- if eq .Values.controller.kind "daemonset" }}
+Cdefense agents are spinning up on each node in your cluster. After a few
+seconds, they are going to start monitoring your containers looking for
+security issues.
+{{printf "\n" }}
+{{- end}}
+{{- if .Values.integrations }}
+WARNING: The following integrations have been deprecated and removed
+ - gcscc
+ - natsOutput
+ - snsOutput
+ - pubsubOutput
+Consider to use cdefensesidekick (https://github.com/cdefensesecurity/cdefensesidekick) as replacement.
+{{- else }}
+No further action should be required.
+{{- end }}
+{{printf "\n" }}
+
+{{- if not .Values.cdefensesidekick.enabled }}
+Tip: 
+You can easily forward Cdefense events to Slack, Kafka, AWS Lambda and more with cdefensesidekick. 
+Full list of outputs: https://github.com/cdefensesecurity/charts/tree/master/cdefensesidekick.
+You can enable its deployment with `--set cdefensesidekick.enabled=true` or in your values.yaml. 
+See: https://github.com/cdefensesecurity/charts/blob/master/cdefensesidekick/values.yaml for configuration values.
+{{- end}}
+
+{{- if and (not (empty .Values.cdefense.load_plugins)) (or .Values.cdefensectl.artifact.follow.enabled .Values.cdefensectl.artifact.install.enabled) }}
+
+WARNING:
+{{ printf "It seems you are loading the following plugins %v, please make sure to install them by adding the correct reference to cdefensectl.config.artifact.install.refs: %v" .Values.cdefense.load_plugins .Values.cdefensectl.config.artifact.install.refs -}}
+{{- end }}

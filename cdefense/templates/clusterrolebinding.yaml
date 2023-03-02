@@ -1,0 +1,16 @@
+{{- if .Values.rbac.create }}
+kind: ClusterRoleBinding
+apiVersion: {{ include "rbac.apiVersion" . }}
+metadata:
+  name: {{ include "cdefense.fullname" . }}
+  labels:
+    {{- include "cdefense.labels" . | nindent 4 }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "cdefense.serviceAccountName" . }}
+    namespace: {{ include "cdefense.namespace" . }}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "cdefense.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

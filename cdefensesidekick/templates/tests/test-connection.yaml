@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "cdefensesidekick.fullname" . }}-test-connection"
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "cdefensesidekick.name" . }}
+    helm.sh/chart: {{ include "cdefensesidekick.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: curl
+      image: appropriate/curl
+      command: ['curl']
+      args:  ["-X", "POST", '{{ include "cdefensesidekick.fullname" . }}:{{ .Values.service.port }}/ping']
+  restartPolicy: Never
+  {{- with .Values.testConnection.nodeSelector }}
+  nodeSelector:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
+  {{- with .Values.testConnection.affinity }}
+  affinity:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}
+  {{- with .Values.testConnection.tolerations }}
+  tolerations:
+    {{- toYaml . | nindent 8 }}
+  {{- end }}

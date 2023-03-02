@@ -1,0 +1,16 @@
+apiVersion: v1
+appVersion: 2.27.0
+description: Connect Falco to your ecosystem
+icon: https://raw.githubusercontent.com/cdefensesecurity/cdefensesidekick/master/imgs/cdefensesidekick_color.png
+name: cdefensesidekick
+version: 0.5.16
+keywords:
+  - monitoring
+  - security
+  - alerting
+home: https://github.com/cdefensesecurity/cdefensesidekick
+sources:
+  - https://github.com/cdefensesecurity/cdefensesidekick
+maintainers:
+  - name: Issif
+    email: cncf-cdefense-dev@lists.cncf.io
