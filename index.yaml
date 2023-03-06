@@ -20,6 +20,14 @@ entries:
     - metric
     - troubleshooting
     - run-time
+    maintainers:
+    - email: cncf-cdefense-dev@lists.cncf.io
+      name: The cdefense Authors
+    name: cdefense
+    sources:
+    - https://github.com/CloudDefenseAI/cdefense-charts/tree/master/cdefense
+    urls:
+    - https://github.com/cdefensesecurity/charts/releases/download/cdefense-3.1.0/cdefense-3.1.0.tgz
     version: 3.1.0
   cdefensesidekick:
   - apiVersion: v1
