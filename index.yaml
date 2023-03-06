@@ -25,7 +25,7 @@ entries:
       name: The cdefense Authors
     name: cdefense
     sources:
-    - https://github.com/cdefensesecurity/cdefense
+    - https://github.com/CloudDefenseAI/cdefense-charts/tree/master/cdefense
     urls:
     - https://github.com/cdefensesecurity/charts/releases/download/cdefense-3.1.0/cdefense-3.1.0.tgz
     version: 3.1.0
@@ -46,7 +46,7 @@ entries:
       name: Issif
     name: cdefensesidekick
     sources:
-    - https://github.com/cdefensesecurity/cdefensesidekick
+    - https://github.com/CloudDefenseAI/cdefense-charts/tree/master/cdefensesidekick
     urls:
     - https://github.com/cdefensesecurity/charts/releases/download/cdefensesidekick-0.5.16/cdefensesidekick-0.5.16.tgz
     version: 0.5.16
