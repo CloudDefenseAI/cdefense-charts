@@ -13,7 +13,7 @@ keywords:
 home: https://cdefense.org
 icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/cdefense/horizontal/color/cdefense-horizontal-color.svg
 sources:
-  - https://github.com/cdefense/cdefense
+  - https://github.com/CloudDefenseAI/cdefense-charts
 maintainers:
   - name: The Cdefense Authors
     email: cncf-cdefense-dev@lists.cncf.io
@@ -21,4 +21,4 @@ dependencies:
   - name: cdefensesidekick
     version: "0.5.16"
     condition: cdefensesidekick.enabled
-    repository: https://cdefense.github.io/charts
+    repository: https://clouddefenseai.github.io/cdefense-charts/
