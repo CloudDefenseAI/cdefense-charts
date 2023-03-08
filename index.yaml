@@ -2,52 +2,13 @@ apiVersion: v1
 entries:
   cdefense:
   - apiVersion: v2
-    appVersion: 0.34.1
-    created: "2023-02-20T14:06:37.583152209Z"
-    dependencies:
-    - condition: cdefensesidekick.enabled
-      name: cdefensesidekick
-      repository: https://github.com/CloudDefenseAI/cdefense-charts/tree/master/cdefensesidekick
-      version: 0.5.16
-    description: cdefense
-    digest: f0cbc4bba4975129e3905d0ee54d6bce43e8fa1190c6b26a0419a344ed05c9ef
-    home: https://cdefense.org
-    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/cdefense/horizontal/color/cdefense-horizontal-color.svg
-    keywords:
-    - monitoring
-    - security
-    - alerting
-    - metric
-    - troubleshooting
-    - run-time
-    maintainers:
-    - email: cncf-cdefense-dev@lists.cncf.io
-      name: The cdefense Authors
+    appVersion: 1.0.0
+    created: "2023-02-28T07:57:24.571862711Z"
+    description: A Helm chart for Kubernetes
+    digest: 4d08cb1cc8a915fdce00425b1b129435453c7f63c9241e9f4c2270f618972846
     name: cdefense
-    sources:
-    - https://github.com/CloudDefenseAI/cdefense-charts/tree/master/cdefense
+    type: application
     urls:
-    - https://github.com/cdefensesecurity/charts/releases/download/cdefense-3.1.0/cdefense-3.1.0.tgz
-    version: 3.1.0
-  cdefensesidekick:
-  - apiVersion: v1
-    appVersion: 2.27.0
-    created: "2023-02-03T20:09:39.206629852Z"
-    description: Connect cdefense to your ecosystem
-    digest: e6ee8396cbfd383ef5f31d24fa3c1b09017b47baa8061b8f78b5b06f19f6f4a5
-    home: https://github.com/cdefensesecurity/cdefensesidekick
-    icon: https://raw.githubusercontent.com/cdefensesecurity/cdefensesidekick/master/imgs/cdefensesidekick_color.png
-    keywords:
-    - monitoring
-    - security
-    - alerting
-    maintainers:
-    - email: cncf-cdefense-dev@lists.cncf.io
-      name: Issif
-    name: cdefensesidekick
-    sources:
-    - https://github.com/CloudDefenseAI/cdefense-charts/tree/master/cdefensesidekick
-    urls:
-    - https://github.com/cdefensesecurity/charts/releases/download/cdefensesidekick-0.5.16/cdefensesidekick-0.5.16.tgz
-    version: 0.5.16
-  generated: "2020-06-17T11:36:18.151554517+02:00"
+    - https://github.com/CloudDefenseAI/cdefense-charts/releases/download/cdefense-charts-1.0.0/cdefense-charts-1.0.0.tgz
+    version: 1.0.0
+generated: "2023-02-28T07:57:24.572039309Z"
