@@ -8,9 +8,9 @@ keywords:
   - monitoring
   - security
   - alerting
-home: https://github.com/cdefensesecurity/cdefensesidekick
+home: https://clouddefenseai.github.io/cdefense-charts/cdefensesidekick
 sources:
-  - https://github.com/cdefensesecurity/cdefensesidekick
+  - https://clouddefenseai.github.io/cdefense-charts/cdefensesidekick
 maintainers:
   - name: Issif
     email: cncf-cdefense-dev@lists.cncf.io
