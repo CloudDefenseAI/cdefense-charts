@@ -34,12 +34,8 @@ spec:
 {{ toYaml .Values.webui.podAnnotations | indent 8 }}
       {{- end }}
     spec:
-      {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
-      {{- range .Values.imagePullSecrets }}
-        - name: {{ . }}
-      {{- end }}
-      {{- end }}
+      - name: regcred
       serviceAccountName: {{ include "falcosidekick.fullname" . }}-ui
       {{- if .Values.webui.priorityClassName }}
       priorityClassName: "{{ .Values.webui.priorityClassName }}"
