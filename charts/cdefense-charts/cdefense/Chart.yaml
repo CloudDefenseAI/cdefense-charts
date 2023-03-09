@@ -17,8 +17,8 @@ sources:
 maintainers:
   - name: The Cdefense Authors
     email: cncf-cdefense-dev@lists.cncf.io
-dependencies:
-  - name: cdefensesidekick
-    version: "0.5.16"
-    condition: cdefensesidekick.enabled
-    repository: https://clouddefenseai.github.io/cdefense-charts/
+# dependencies:
+#   - name: cdefensesidekick
+#     version: "0.5.16"
+#     condition: cdefensesidekick.enabled
+#     repository: https://clouddefenseai.github.io/cdefense-charts/

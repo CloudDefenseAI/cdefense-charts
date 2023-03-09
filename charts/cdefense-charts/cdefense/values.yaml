@@ -12,7 +12,7 @@ image:
   # -- The image repository to pull from
   repository: cdefense/cdefense-no-driver
   # -- The image tag to pull. Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: latest
 
 # -- Secrets containing credentials when pulling from private/secure registries.
 imagePullSecrets: []
@@ -203,7 +203,7 @@ driver:
         # -- The image repository to pull from.
         repository: cdefense/cdefense-driver-loader
         #  -- Overrides the image tag whose default is the chart appVersion.
-        tag: ""
+        tag: latest
       # -- Extra environment variables that will be pass onto Cdefense driver loader init container.
       env: []
       # -- Arguments to pass to the Cdefense driver loader init container.
@@ -339,7 +339,7 @@ cdefensectl:
     # -- The image repository to pull from.
     repository: cdefense/cdefensectl
     #  -- Overrides the image tag whose default is the chart appVersion.
-    tag: "0.4.0"
+    tag: latest
   artifact:
     # -- Runs "cdefensectl artifact install" command as an init container. It is used to install artfacts before
     # Cdefense starts. It provides them to Cdefense by using an emptyDir volume.

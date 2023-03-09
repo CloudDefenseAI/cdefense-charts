@@ -11,7 +11,7 @@ image:
   # -- The image repository to pull from
   repository: cdefense/cdefensesidekick
   # -- The image tag to pull
-  tag: 2.27.0
+  tag: latest
   # -- The image pull policy
   pullPolicy: IfNotPresent
 
@@ -826,7 +826,7 @@ webui:
     # -- The web UI image repository to pull from
     repository: cdefense/cdefensesidekick-ui
     # -- The web UI image tag to pull
-    tag: "v2.1.0"
+    tag: latest
     # -- The web UI image pull policy
     pullPolicy: IfNotPresent
 
