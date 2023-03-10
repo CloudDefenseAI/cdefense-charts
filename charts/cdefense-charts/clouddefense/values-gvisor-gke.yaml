@@ -57,11 +57,11 @@ clouddefensectl:
         resolveDeps: false
         # -- List of artifacts to be installed by the clouddefensectl init container.
         # We do not recommend installing (or following) plugins for security reasons since they are executable objects.
-        refs: [clouddefense-rules:0]
+        refs: [falco-rules:0]
       follow:
         # -- List of artifacts to be followed by the clouddefensectl sidecar container.
         # We do not recommend installing (or following) plugins for security reasons since they are executable objects.
-        refs: [clouddefense-rules:0]
+        refs: [falco-rules:0]
 
 # Set this to true to force clouddefense so output the logs as soon as they are emmitted.
 tty: false
