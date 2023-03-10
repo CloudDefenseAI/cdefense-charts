@@ -1,12 +1,12 @@
-{{- if or .Values.falcoctl.artifact.install.enabled .Values.falcoctl.artifact.follow.enabled }}
+{{- if or .Values.clouddefensectl.artifact.install.enabled .Values.clouddefensectl.artifact.follow.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "falco.fullname" . }}-falcoctl
-  namespace: {{ include "falco.namespace" . }}
+  name: {{ include "clouddefense.fullname" . }}-clouddefensectl
+  namespace: {{ include "clouddefense.namespace" . }}
   labels:
-    {{- include "falco.labels" . | nindent 4 }}
+    {{- include "clouddefense.labels" . | nindent 4 }}
 data:
-  falcoctl.yaml: |-
-    {{- toYaml .Values.falcoctl.config | nindent 4 }}
+  clouddefensectl.yaml: |-
+    {{- toYaml .Values.clouddefensectl.config | nindent 4 }}
 {{- end }}

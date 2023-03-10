@@ -1,7 +1,7 @@
 #generate helm documentation
 DOCS_IMAGE_VERSION="v1.11.0"
 
-#Here we use the "latest" tag since our CI uses the same(https://github.com/falcosecurity/charts/blob/2f04bccb5cacbbf3ecc2d2659304b74f865f41dd/.circleci/config.yml#L16).
+#Here we use the "latest" tag since our CI uses the same(https://github.com/clouddefensesecurity/charts/blob/2f04bccb5cacbbf3ecc2d2659304b74f865f41dd/.circleci/config.yml#L16).
 LINT_IMAGE_VERSION="latest"
 
 docs:
@@ -19,7 +19,7 @@ lint: helm-repo-update
 	--workdir=/data \
 	--volume $$(pwd)/..:/data \
 	quay.io/helmpack/chart-testing:latest \
-	ct lint --config ./tests/ct.yaml --charts ./falco --chart-dirs .
+	ct lint --config ./tests/ct.yaml --charts ./clouddefense --chart-dirs .
 
 helm-repo-update:
 	helm repo update

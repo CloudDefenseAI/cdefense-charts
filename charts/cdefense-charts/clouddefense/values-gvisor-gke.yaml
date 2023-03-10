@@ -1,7 +1,7 @@
-# Default values to deploy Falco on GKE with gVisor.
+# Default values to deploy clouddefense on GKE with gVisor.
 
 # Affinity constraint for pods' scheduling.
-# Needed to deploy Falco on the gVisor enabled nodes.
+# Needed to deploy clouddefense on the gVisor enabled nodes.
 affinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
@@ -12,8 +12,8 @@ affinity:
           values:
           - gvisor
 
-# Tolerations to allow Falco to run on Kubernetes 1.6 masters.
-# Adds the neccesssary tolerations to allow Falco pods to be scheduled on the gVisor enabled nodes.
+# Tolerations to allow clouddefense to run on Kubernetes 1.6 masters.
+# Adds the neccesssary tolerations to allow clouddefense pods to be scheduled on the gVisor enabled nodes.
 tolerations:
   - effect: NoSchedule
     key: node-role.kubernetes.io/master
@@ -41,7 +41,7 @@ collectors:
     enabled: true
     socket: /run/containerd/containerd.sock
 
-falcoctl:
+clouddefensectl:
   artifact:
     install:
       # -- Enable the init container. We do not recommend installing plugins for security reasons since they are executable objects.
@@ -55,13 +55,13 @@ falcoctl:
       install:
         # -- Do not resolve the depenencies for artifacts. By default is true, but for our use case we disable it.
         resolveDeps: false
-        # -- List of artifacts to be installed by the falcoctl init container.
+        # -- List of artifacts to be installed by the clouddefensectl init container.
         # We do not recommend installing (or following) plugins for security reasons since they are executable objects.
-        refs: [falco-rules:0]
+        refs: [clouddefense-rules:0]
       follow:
-        # -- List of artifacts to be followed by the falcoctl sidecar container.
+        # -- List of artifacts to be followed by the clouddefensectl sidecar container.
         # We do not recommend installing (or following) plugins for security reasons since they are executable objects.
-        refs: [falco-rules:0]
+        refs: [clouddefense-rules:0]
 
-# Set this to true to force Falco so output the logs as soon as they are emmitted.
+# Set this to true to force clouddefense so output the logs as soon as they are emmitted.
 tty: false

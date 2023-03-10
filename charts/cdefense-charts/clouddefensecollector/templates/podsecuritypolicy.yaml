@@ -2,9 +2,9 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: {{ template "falcosidekick.fullname" . }}
+  name: {{ template "clouddefensecollector.fullname" . }}
   labels:
-    app: {{ template "falcosidekick.fullname" . }}
+    app: {{ template "clouddefensecollector.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"

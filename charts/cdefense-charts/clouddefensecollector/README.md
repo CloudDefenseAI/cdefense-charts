@@ -1,21 +1,21 @@
-# Falcosidekick
+# clouddefensecollector
 
-![falcosidekick](https://github.com/falcosecurity/falcosidekick/raw/master/imgs/falcosidekick_color.png)
+![clouddefensecollector](https://github.com/clouddefensesecurity/clouddefensecollector/raw/master/imgs/clouddefensecollector_color.png)
 
-![release](https://flat.badgen.net/github/release/falcosecurity/falcosidekick/latest?color=green) ![last commit](https://flat.badgen.net/github/last-commit/falcosecurity/falcosidekick) ![licence](https://flat.badgen.net/badge/license/MIT/blue) ![docker pulls](https://flat.badgen.net/docker/pulls/falcosecurity/falcosidekick?icon=docker)
+![release](https://flat.badgen.net/github/release/clouddefensesecurity/clouddefensecollector/latest?color=green) ![last commit](https://flat.badgen.net/github/last-commit/clouddefensesecurity/clouddefensecollector) ![licence](https://flat.badgen.net/badge/license/MIT/blue) ![docker pulls](https://flat.badgen.net/docker/pulls/clouddefensesecurity/clouddefensecollector?icon=docker)
 
 ## Description
 
-A simple daemon for connecting [`Falco`](https://github.com/falcosecurity/falco) to your ecossytem. It takes a `Falco`'s events and
+A simple daemon for connecting [`CloudDefense`](https://github.com/clouddefensesecurity/clouddefense) to your ecossytem. It takes a `CloudDefense`'s events and
 forward them to different outputs in a fan-out way.
 
-It works as a single endpoint for as many as you want `Falco` instances :
+It works as a single endpoint for as many as you want `CloudDefense` instances :
 
-![falco_with_falcosidekick](https://github.com/falcosecurity/falcosidekick/raw/master/imgs/falco_with_falcosidekick.png)
+![clouddefense_with_clouddefensecollector](https://github.com/clouddefensesecurity/clouddefensecollector/raw/master/imgs/clouddefense_with_clouddefensecollector.png)
 
 ## Outputs
 
-`Falcosidekick` manages a large variety of outputs with different purposes.
+`clouddefensecollector` manages a large variety of outputs with different purposes.
 
 ### Chat
 
@@ -31,9 +31,9 @@ It works as a single endpoint for as many as you want `Falco` instances :
 
 - [**Datadog**](https://www.datadoghq.com/)
 - [**Influxdb**](https://www.influxdata.com/products/influxdb-overview/)
-- [**StatsD**](https://github.com/statsd/statsd) (for monitoring of `falcosidekick`)
-- [**DogStatsD**](https://docs.datadoghq.com/developers/dogstatsd/?tab=go) (for monitoring of `falcosidekick`)
-- [**Prometheus**](https://prometheus.io/) (for both events and monitoring of `falcosidekick`)
+- [**StatsD**](https://github.com/statsd/statsd) (for monitoring of `clouddefensecollector`)
+- [**DogStatsD**](https://docs.datadoghq.com/developers/dogstatsd/?tab=go) (for monitoring of `clouddefensecollector`)
+- [**Prometheus**](https://prometheus.io/) (for both events and monitoring of `clouddefensecollector`)
 - [**Wavefront**](https://www.wavefront.com)
 
 ### Alerting
@@ -85,40 +85,40 @@ It works as a single endpoint for as many as you want `Falco` instances :
 ### Web
 
 - **Webhook**
-- [**WebUI**](https://github.com/falcosecurity/falcosidekick-ui) (a Web UI for displaying latest events in real time)
+- [**WebUI**](https://github.com/clouddefensesecurity/clouddefensecollector-ui) (a Web UI for displaying latest events in real time)
 
 ### Other
-- [**Policy Report**](https://github.com/kubernetes-sigs/wg-policy-prototypes/tree/master/policy-report/falco-adapter)
+- [**Policy Report**](https://github.com/kubernetes-sigs/wg-policy-prototypes/tree/master/policy-report/clouddefense-adapter)
 
-## Adding `falcosecurity` repository
+## Adding `clouddefensesecurity` repository
 
-Prior to install the chart, add the `falcosecurity` charts repository:
+Prior to install the chart, add the `clouddefensesecurity` charts repository:
 
 ```bash
-helm repo add falcosecurity https://falcosecurity.github.io/charts
+helm repo add clouddefensesecurity https://clouddefensesecurity.github.io/charts
 helm repo update
 ```
 
 ## Installing the Chart
 
-### Install Falco + Falcosidekick + Falcosidekick-ui
+### Install CloudDefense + clouddefensecollector + clouddefensecollector-ui
 
-To install the chart with the release name `falcosidekick` run:
-
-```bash
-helm install falcosidekick falcosecurity/falcosidekick --set webui.enabled=true
-```
-
-### With Helm chart of Falco
-
-`Falco`, `Falcosidekick` and `Falcosidekick-ui` can be installed together in one command. All values to configure `Falcosidekick` will have to be
-prefixed with `falcosidekick.`.
+To install the chart with the release name `clouddefensecollector` run:
 
 ```bash
-helm install falco falcosecurity/falco --set falcosidekick.enabled=true --set falcosidekick.webui.enabled=true
+helm install clouddefensecollector clouddefensesecurity/clouddefensecollector --set webui.enabled=true
 ```
 
-After a few seconds, Falcosidekick should be running.
+### With Helm chart of CloudDefense
+
+`CloudDefense`, `clouddefensecollector` and `clouddefensecollector-ui` can be installed together in one command. All values to configure `clouddefensecollector` will have to be
+prefixed with `clouddefensecollector.`.
+
+```bash
+helm install clouddefense clouddefensesecurity/clouddefense --set clouddefensecollector.enabled=true --set clouddefensecollector.webui.enabled=true
+```
+
+After a few seconds, clouddefensecollector should be running.
 
 > **Tip**: List all releases using `helm list`, a release is a name used to track a specific deployment
 
@@ -128,17 +128,17 @@ The minimum Kubernetes version required is 1.17.x
 
 ## Uninstalling the Chart
 
-To uninstall the `falcosidekick` deployment:
+To uninstall the `clouddefensecollector` deployment:
 
 ```bash
-helm uninstall falcosidekick
+helm uninstall clouddefensecollector
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## Configuration
 
-The following table lists the main configurable parameters of the Falcosidekick chart and their default values. See `values.yaml` for full list.
+The following table lists the main configurable parameters of the clouddefensecollector chart and their default values. See `values.yaml` for full list.
 
 ## Values
 
@@ -146,7 +146,7 @@ The following table lists the main configurable parameters of the Falcosidekick 
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity for the Sidekick pods |
 | config.alertmanager.checkcert | bool | `true` | check if ssl certificate of the output is valid |
-| config.alertmanager.endpoint | string | `"/api/v1/alerts"` | alertmanager endpoint on which falcosidekick posts alerts, choice is: `"/api/v1/alerts" or "/api/v2/alerts" , default is "/api/v1/alerts"` |
+| config.alertmanager.endpoint | string | `"/api/v1/alerts"` | alertmanager endpoint on which clouddefensecollector posts alerts, choice is: `"/api/v1/alerts" or "/api/v2/alerts" , default is "/api/v1/alerts"` |
 | config.alertmanager.expireafter | string | `""` | if set to a non-zero value, alert expires after that time in seconds (default: 0) |
 | config.alertmanager.extraannotations | string | `""` | comma separated list of annotations composed of a ':' separated name and value that is added to the Alerts. Example: my_annotation_1:my_value_1, my_annotation_1:my_value_2 |
 | config.alertmanager.extralabels | string | `""` | comma separated list of labels composed of a ':' separated name and value that is added to the Alerts. Example: my_label_1:my_value_1, my_label_1:my_value_2 |
@@ -163,20 +163,20 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | config.aws.accesskeyid | string | `""` | AWS Access Key Id (optionnal if you use EC2 Instance Profile) |
 | config.aws.checkidentity | bool | `true` | check the identity credentials, set to false for locale developments |
 | config.aws.cloudwatchlogs.loggroup | string | `""` | AWS CloudWatch Logs Group name, if not empty, CloudWatch Logs output is *enabled* |
-| config.aws.cloudwatchlogs.logstream | string | `""` | AWS CloudWatch Logs Stream name, if empty, Falcosidekick will try to create a log stream |
+| config.aws.cloudwatchlogs.logstream | string | `""` | AWS CloudWatch Logs Stream name, if empty, clouddefensecollector will try to create a log stream |
 | config.aws.cloudwatchlogs.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.aws.kinesis.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.aws.kinesis.streamname | string | `""` | AWS Kinesis Stream Name, if not empty, Kinesis output is *enabled* |
 | config.aws.lambda.functionname | string | `""` | AWS Lambda Function Name, if not empty, AWS Lambda output is *enabled* |
 | config.aws.lambda.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.aws.region | string | `""` | AWS Region (optionnal if you use EC2 Instance Profile) |
-| config.aws.rolearn | string | `""` | AWS IAM role ARN for falcosidekick service account to associate with (optionnal if you use EC2 Instance Profile) |
+| config.aws.rolearn | string | `""` | AWS IAM role ARN for clouddefensecollector service account to associate with (optionnal if you use EC2 Instance Profile) |
 | config.aws.s3.bucket | string | `""` | AWS S3, bucket name |
 | config.aws.s3.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.aws.s3.prefix | string | `""` | AWS S3, name of prefix, keys will have format: s3://<bucket>/<prefix>/YYYY-MM-DD/YYYY-MM-DDTHH:mm:ss.s+01:00.json |
 | config.aws.secretaccesskey | string | `""` | AWS Secret Access Key (optionnal if you use EC2 Instance Profile) |
 | config.aws.sns.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
-| config.aws.sns.rawjson | bool | `false` | Send RawJSON from `falco` or parse it to AWS SNS |
+| config.aws.sns.rawjson | bool | `false` | Send RawJSON from `clouddefense` or parse it to AWS SNS |
 | config.aws.sns.topicarn | string | `""` | AWS SNS TopicARN, if not empty, AWS SNS output is *enabled* |
 | config.aws.sqs.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.aws.sqs.url | string | `""` | AWS SQS Queue URL, if not empty, AWS SQS output is *enabled* |
@@ -196,7 +196,7 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | config.cloudevents.address | string | `""` | CloudEvents consumer http address, if not empty, CloudEvents output is *enabled* |
 | config.cloudevents.extension | string | `""` | Extensions to add in the outbound Event, useful for routing |
 | config.cloudevents.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
-| config.customfields | string | `""` | a list of escaped comma separated custom fields to add to falco events, syntax is "key:value\,key:value" |
+| config.customfields | string | `""` | a list of escaped comma separated custom fields to add to clouddefense events, syntax is "key:value\,key:value" |
 | config.datadog.apikey | string | `""` | Datadog API Key, if not `empty`, Datadog output is *enabled* |
 | config.datadog.host | string | `""` | Datadog host. Override if you are on the Datadog EU site. Defaults to american site with "<https://api.datadoghq.com>" |
 | config.datadog.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
@@ -205,11 +205,11 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | config.discord.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.discord.webhookurl | string | `""` | Discord WebhookURL (ex: <https://discord.com/api/webhooks/xxxxxxxxxx>...), if not empty, Discord output is *enabled* |
 | config.dogstatsd.forwarder | string | `""` | The address for the DogStatsD forwarder, in the form <http://host:port>, if not empty DogStatsD is *enabled* |
-| config.dogstatsd.namespace | string | `"falcosidekick."` | A prefix for all metrics |
+| config.dogstatsd.namespace | string | `"clouddefensecollector."` | A prefix for all metrics |
 | config.dogstatsd.tags | string | `""` | A comma-separated list of tags to add to all metrics |
 | config.elasticsearch.checkcert | bool | `true` | check if ssl certificate of the output is valid |
 | config.elasticsearch.hostport | string | `""` | Elasticsearch <http://host:port>, if not `empty`, Elasticsearch is *enabled* |
-| config.elasticsearch.index | string | `"falco"` | Elasticsearch index |
+| config.elasticsearch.index | string | `"clouddefense"` | Elasticsearch index |
 | config.elasticsearch.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.elasticsearch.mutualtls | bool | `false` | if true, checkcert flag will be ignored (server cert will always be checked) |
 | config.elasticsearch.password | string | `""` | use this password to authenticate to Elasticsearch if the password is not empty |
@@ -255,7 +255,7 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | config.grafana.mutualtls | bool | `false` | if true, checkcert flag will be ignored (server cert will always be checked) |
 | config.grafana.panelid | string | `""` | annotations are scoped to a specific panel. Optionnal. |
 | config.influxdb.checkcert | bool | `true` | check if ssl certificate of the output is valid |
-| config.influxdb.database | string | `"falco"` | Influxdb database |
+| config.influxdb.database | string | `"clouddefense"` | Influxdb database |
 | config.influxdb.hostport | string | `""` | Influxdb <http://host:port>, if not `empty`, Influxdb is *enabled* |
 | config.influxdb.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.influxdb.mutualtls | bool | `false` | if true, checkcert flag will be ignored (server cert will always be checked) |
@@ -310,7 +310,7 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | config.mqtt.password | string | `""` | Password if the authentication is enabled in the broker |
 | config.mqtt.qos | int | `0` | QOS for messages |
 | config.mqtt.retained | bool | `false` | If true, messages are retained |
-| config.mqtt.topic | string | `"falco/events"` | Topic for messages |
+| config.mqtt.topic | string | `"clouddefense/events"` | Topic for messages |
 | config.mqtt.user | string | `""` | User if the authentication is enabled in the broker |
 | config.mutualtlsfilespath | string | `"/etc/certs"` | folder which will used to store client.crt, client.key and ca.crt files for mutual tls (default: "/etc/certs") |
 | config.nats.checkcert | bool | `true` | check if ssl certificate of the output is valid |
@@ -339,7 +339,7 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | config.pagerduty.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.pagerduty.routingkey | string | `""` | Pagerduty Routing Key, if not empty, Pagerduty output is *enabled* |
 | config.policyreport.enabled | bool | `false` | if true; policyreport output is *enabled* |
-| config.policyreport.kubeconfig | string | `"~/.kube/config"` | Kubeconfig file to use (only if falcosidekick is running outside the cluster) |
+| config.policyreport.kubeconfig | string | `"~/.kube/config"` | Kubeconfig file to use (only if clouddefensecollector is running outside the cluster) |
 | config.policyreport.maxevents | int | `1000` | the max number of events that can be in a policyreport |
 | config.policyreport.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.policyreport.prunebypriority | bool | `false` | if true; the events with lowest severity are pruned first, in FIFO order |
@@ -378,7 +378,7 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | config.spyderbat.apiurl | string | `"https://api.spyderbat.com"` | Spyderbat API url |
 | config.spyderbat.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.spyderbat.orguid | string | `""` | Organization to send output to, if not empty, Spyderbat output is enabled |
-| config.spyderbat.source | string | `"falcosidekick"` | Spyderbat source ID, max 32 characters |
+| config.spyderbat.source | string | `"clouddefensecollector"` | Spyderbat source ID, max 32 characters |
 | config.spyderbat.sourcedescription | string | `""` | Spyderbat source description and display name if not empty, max 256 characters |
 | config.stan.checkcert | bool | `true` | check if ssl certificate of the output is valid |
 | config.stan.clientid | string | `""` | Client ID, if not empty, STAN output is *enabled* |
@@ -387,7 +387,7 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | config.stan.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.stan.mutualtls | bool | `false` | if true, checkcert flag will be ignored (server cert will always be checked) |
 | config.statsd.forwarder | string | `""` | The address for the StatsD forwarder, in the form <http://host:port>, if not empty StatsD is *enabled* |
-| config.statsd.namespace | string | `"falcosidekick."` | A prefix for all metrics |
+| config.statsd.namespace | string | `"clouddefensecollector."` | A prefix for all metrics |
 | config.syslog.format | string | `"json"` | Syslog payload format. It can be either "json" or "cef" |
 | config.syslog.host | string | `""` | Syslog Host, if not empty, Syslog output is *enabled* |
 | config.syslog.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
@@ -400,10 +400,10 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | config.tekton.checkcert | bool | `true` | check if ssl certificate of the output is valid |
 | config.tekton.eventlistener | string | `""` | EventListener address, if not empty, Tekton output is enabled |
 | config.tekton.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
-| config.templatedfields | string | `""` | a list of escaped comma separated Go templated fields to add to falco events, syntax is "key:template\,key:template" |
+| config.templatedfields | string | `""` | a list of escaped comma separated Go templated fields to add to clouddefense events, syntax is "key:template\,key:template" |
 | config.timescaledb.database | string | `""` | TimescaleDB database used |
 | config.timescaledb.host | string | `""` | TimescaleDB host, if not empty, TImescaleDB output is enabled |
-| config.timescaledb.hypertablename | string | `"falco_events"` | Hypertable to store data events (default: falco_events) See TimescaleDB setup for more info  |
+| config.timescaledb.hypertablename | string | `"clouddefense_events"` | Hypertable to store data events (default: clouddefense_events) See TimescaleDB setup for more info  |
 | config.timescaledb.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.timescaledb.password | string | `"postgres"` | Password to authenticate with TimescaleDB |
 | config.timescaledb.port | int | `5432` | TimescaleDB port (default: 5432) |
@@ -414,7 +414,7 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | config.wavefront.endpointtoken | string | `""` | Wavefront token. Must be used only when endpointtype is 'direct' |
 | config.wavefront.endpointtype | string | `""` | Wavefront endpoint type, must be 'direct' or 'proxy'. If not empty, with endpointhost, Wavefront output is *enabled* |
 | config.wavefront.flushintervalseconds | int | `1` | Wavefront flush interval in seconds. Defaults to 1 |
-| config.wavefront.metricname | string | `"falco.alert"` | Metric to be created in Wavefront. Defaults to falco.alert |
+| config.wavefront.metricname | string | `"clouddefense.alert"` | Metric to be created in Wavefront. Defaults to clouddefense.alert |
 | config.wavefront.minimumpriority | string | `"debug"` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.webhook.address | string | `""` | Webhook address, if not empty, Webhook output is *enabled* |
 | config.webhook.checkcert | bool | `true` | check if ssl certificate of the output is valid |
@@ -433,7 +433,7 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | config.yandex.secretaccesskey | string | `""` | yandex secret access key |
 | config.zincsearch.checkcert | bool | `true` | check if ssl certificate of the output is valid |
 | config.zincsearch.hostport | string | `""` | http://{domain or ip}:{port}, if not empty, ZincSearch output is enabled |
-| config.zincsearch.index | string | `"falco"` | index |
+| config.zincsearch.index | string | `"clouddefense"` | index |
 | config.zincsearch.minimumpriority | string | `""` | minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""` |
 | config.zincsearch.password | string | `""` | use this password to authenticate to ZincSearch |
 | config.zincsearch.username | string | `""` | use this username to authenticate to ZincSearch |
@@ -442,12 +442,12 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | fullnameOverride | string | `""` | Override the name |
 | image.pullPolicy | string | `"IfNotPresent"` | The image pull policy |
 | image.registry | string | `"docker.io"` | The image registry to pull from |
-| image.repository | string | `"falcosecurity/falcosidekick"` | The image repository to pull from |
+| image.repository | string | `"clouddefensesecurity/clouddefensecollector"` | The image repository to pull from |
 | image.tag | string | `"2.27.0"` | The image tag to pull |
 | imagePullSecrets | list | `[]` | Secrets for the registry |
 | ingress.annotations | object | `{}` | Ingress annotations |
 | ingress.enabled | bool | `false` | Whether to create the ingress |
-| ingress.hosts | list | `[{"host":"falcosidekick.local","paths":[{"path":"/"}]}]` | Ingress hosts |
+| ingress.hosts | list | `[{"host":"clouddefensecollector.local","paths":[{"path":"/"}]}]` | Ingress hosts |
 | ingress.tls | list | `[]` | Ingress TLS configuration |
 | nameOverride | string | `""` | Override name |
 | nodeSelector | object | `{}` | Sidekick nodeSelector field |
@@ -458,7 +458,7 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | podSecurityPolicy.create | bool | `false` | Whether to create a podSecurityPolicy |
 | priorityClassName | string | `""` | Name of the priority class to be used by the Sidekickpods, priority class needs to be created beforehand |
 | replicaCount | int | `2` | number of running pods |
-| resources | object | `{}` | The resources for falcosdekick pods |
+| resources | object | `{}` | The resources for clouddefensesdekick pods |
 | securityContext | object | `{}` | Sidekick container securityContext |
 | service.annotations | object | `{}` | Service annotations |
 | service.port | int | `2801` | Service port |
@@ -468,17 +468,17 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | testConnection.tolerations | list | `[]` | Tolerations for pod assignment |
 | tolerations | list | `[]` | Tolerations for pod assignment |
 | webui.affinity | object | `{}` | Affinity for the Web UI pods |
-| webui.enabled | bool | `false` | enable Falcosidekick-UI |
+| webui.enabled | bool | `false` | enable clouddefensecollector-UI |
 | webui.externalRedis.enabled | bool | `false` | Enable or disable the usage of an external Redis. Is mutually exclusive with webui.redis.enabled. |
 | webui.externalRedis.port | int | `6379` | The port of the external Redis database with RediSearch > v2 |
 | webui.externalRedis.url | string | `""` | The URL of the external Redis database with RediSearch > v2 |
 | webui.image.pullPolicy | string | `"IfNotPresent"` | The web UI image pull policy |
 | webui.image.registry | string | `"docker.io"` | The web UI image registry to pull from |
-| webui.image.repository | string | `"falcosecurity/falcosidekick-ui"` | The web UI image repository to pull from |
+| webui.image.repository | string | `"clouddefensesecurity/clouddefensecollector-ui"` | The web UI image repository to pull from |
 | webui.image.tag | string | `"v2.1.0"` | The web UI image tag to pull |
 | webui.ingress.annotations | object | `{}` | Web UI ingress annotations |
 | webui.ingress.enabled | bool | `false` | Whether to create the Web UI ingress |
-| webui.ingress.hosts | list | `[{"host":"falcosidekick-ui.local","paths":[{"path":"/"}]}]` | Web UI ingress hosts configuration |
+| webui.ingress.hosts | list | `[{"host":"clouddefensecollector-ui.local","paths":[{"path":"/"}]}]` | Web UI ingress hosts configuration |
 | webui.ingress.tls | list | `[]` | Web UI ingress TLS configuration |
 | webui.loglevel | string | `"info"` | Log level ("debug", "info", "warning", "error") |
 | webui.nodeSelector | object | `{}` | Web UI nodeSelector field |
@@ -500,7 +500,7 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | webui.redis.resources | object | `{}` | The resources for the redis pod |
 | webui.redis.securityContext | object | `{}` | Web UI Redis container securityContext |
 | webui.redis.service.annotations | object | `{}` | The web UI Redis service annotations (use this to set a internal LB, for example.) |
-| webui.redis.service.port | int | `6379` | The web UI Redis service port dor the falcosidekick-ui |
+| webui.redis.service.port | int | `6379` | The web UI Redis service port dor the clouddefensecollector-ui |
 | webui.redis.service.targetPort | int | `6379` | The web UI Redis service targetPort |
 | webui.redis.service.type | string | `"ClusterIP"` | The web UI Redis service type (i. e: LoadBalancer) |
 | webui.redis.storageClass | string | `""` | Storage class of the PVC for the redis pod |
@@ -512,7 +512,7 @@ The following table lists the main configurable parameters of the Falcosidekick 
 | webui.securityContext | object | `{}` | Web UI container securityContext |
 | webui.service.annotations | object | `{}` | The web UI service annotations (use this to set a internal LB, for example.) |
 | webui.service.nodePort | int | `30282` | The web UI service nodePort |
-| webui.service.port | int | `2802` | The web UI service port dor the falcosidekick-ui |
+| webui.service.port | int | `2802` | The web UI service port dor the clouddefensecollector-ui |
 | webui.service.targetPort | int | `2802` | The web UI service targetPort |
 | webui.service.type | string | `"ClusterIP"` | The web UI service type |
 | webui.tolerations | list | `[]` | Tolerations for pod assignment |

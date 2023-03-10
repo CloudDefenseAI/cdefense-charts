@@ -1,8 +1,8 @@
-{{- define "falco.podTemplate" -}}
+{{- define "clouddefense.podTemplate" -}}
 metadata:
-  name: {{ include "falco.fullname" . }}
+  name: {{ include "clouddefense.fullname" . }}
   labels:
-    {{- include "falco.selectorLabels" . | nindent 4 }}
+    {{- include "clouddefense.selectorLabels" . | nindent 4 }}
     {{- with .Values.podLabels }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
@@ -16,7 +16,7 @@ metadata:
       {{- toYaml . | nindent 4 }}
     {{- end }}
 spec:
-  serviceAccountName: {{ include "falco.serviceAccountName" . }}
+  serviceAccountName: {{ include "clouddefense.serviceAccountName" . }}
   {{- with .Values.podSecurityContext }}
   securityContext:
     {{- toYaml . | nindent 4}}
@@ -52,14 +52,14 @@ spec:
   {{- end }}
   containers:
     - name: {{ .Chart.Name }}
-      image: {{ include "falco.image" . }}
+      image: {{ include "clouddefense.image" . }}
       imagePullPolicy: {{ .Values.image.pullPolicy }}
       resources:
         {{- toYaml .Values.resources | nindent 8 }}
       securityContext:
-        {{- include "falco.securityContext" . | nindent 8 }}
+        {{- include "clouddefense.securityContext" . | nindent 8 }}
       args:
-        - /usr/bin/falco
+        - /usr/bin/clouddefense
         {{- if and .Values.driver.enabled (eq .Values.driver.kind "modern-bpf") }}
         - --modern-bpf
         {{- end }}
@@ -69,7 +69,7 @@ spec:
         - --gvisor-root
         - /host{{ .Values.gvisor.runsc.root }}/k8s.io
         {{- end }}
-        {{- include "falco.configSyscallSource" . | indent 8 }}
+        {{- include "clouddefense.configSyscallSource" . | indent 8 }}
         {{- with .Values.collectors }}
         {{- if .enabled }}
         {{- if .containerd.enabled }}
@@ -87,7 +87,7 @@ spec:
         - {{ .kubernetes.apiUrl }}
         {{- if .kubernetes.enableNodeFilter }}
         - --k8s-node
-        - "$(FALCO_K8S_NODE_NAME)"
+        - "$(CLOUDDEFENSE_K8S_NODE_NAME)"
         {{- end }}
         {{- end }}
         - -pk
@@ -97,27 +97,27 @@ spec:
       {{- toYaml . | nindent 8 }}
     {{- end }}
       env:
-        - name: FALCO_K8S_NODE_NAME
+        - name: CLOUDDEFENSE_K8S_NODE_NAME
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
       {{- if and .Values.driver.enabled (eq .Values.driver.kind "ebpf") }}
-        - name: FALCO_BPF_PROBE
+        - name: CLOUDDEFENSE_BPF_PROBE
           value: {{ .Values.driver.ebpf.path }}
       {{- end }}
       {{- if .Values.extra.env }}
-      {{- include "falco.renderTemplate" ( dict "value" .Values.extra.env "context" $) | nindent 8 }}
+      {{- include "clouddefense.renderTemplate" ( dict "value" .Values.extra.env "context" $) | nindent 8 }}
       {{- end }}
       tty: {{ .Values.tty }}
-      {{- if .Values.falco.webserver.enabled }}
+      {{- if .Values.clouddefense.webserver.enabled }}
       livenessProbe:
         initialDelaySeconds: {{ .Values.healthChecks.livenessProbe.initialDelaySeconds }}
         timeoutSeconds: {{ .Values.healthChecks.livenessProbe.timeoutSeconds }}
         periodSeconds: {{ .Values.healthChecks.livenessProbe.periodSeconds }}
         httpGet:
-          path: {{ .Values.falco.webserver.k8s_healthz_endpoint }}
-          port: {{ .Values.falco.webserver.listen_port }}
-          {{- if .Values.falco.webserver.ssl_enabled }}
+          path: {{ .Values.clouddefense.webserver.k8s_healthz_endpoint }}
+          port: {{ .Values.clouddefense.webserver.listen_port }}
+          {{- if .Values.clouddefense.webserver.ssl_enabled }}
           scheme: HTTPS
           {{- end }}
       readinessProbe:
@@ -125,25 +125,25 @@ spec:
         timeoutSeconds: {{ .Values.healthChecks.readinessProbe.timeoutSeconds }}
         periodSeconds: {{ .Values.healthChecks.readinessProbe.periodSeconds }}
         httpGet:
-          path: {{ .Values.falco.webserver.k8s_healthz_endpoint }}
-          port: {{ .Values.falco.webserver.listen_port }}
-          {{- if .Values.falco.webserver.ssl_enabled }}
+          path: {{ .Values.clouddefense.webserver.k8s_healthz_endpoint }}
+          port: {{ .Values.clouddefense.webserver.listen_port }}
+          {{- if .Values.clouddefense.webserver.ssl_enabled }}
           scheme: HTTPS
           {{- end }}
       {{- end }}
       volumeMounts:
-      {{- if or .Values.falcoctl.artifact.install.enabled .Values.falcoctl.artifact.follow.enabled }}
-      {{- if has "rulesfile" .Values.falcoctl.config.artifact.allowedTypes }}
+      {{- if or .Values.clouddefensectl.artifact.install.enabled .Values.clouddefensectl.artifact.follow.enabled }}
+      {{- if has "rulesfile" .Values.clouddefensectl.config.artifact.allowedTypes }}
         - mountPath: /etc/falco
           name: rulesfiles-install-dir
       {{- end }}
-      {{- if has "plugin" .Values.falcoctl.config.artifact.allowedTypes }}
+      {{- if has "plugin" .Values.clouddefensectl.config.artifact.allowedTypes }}
         - mountPath: /usr/share/falco/plugins
           name: plugins-install-dir
       {{- end }}
       {{- end }}
         - mountPath: /root/.falco
-          name: root-falco-fs
+          name: root-clouddefense-fs
         {{- if or .Values.driver.enabled .Values.mounts.enforceProcMount }}
         - mountPath: /host/proc
           name: proc-fs
@@ -167,9 +167,9 @@ spec:
           name: dev-fs
           readOnly: true
         - name: sys-fs
-          mountPath: /sys/module/falco
+          mountPath: /sys/module/clouddefense
         {{- end }}
-        {{- if and .Values.driver.enabled (and (eq .Values.driver.kind "ebpf") (contains "falco-no-driver" .Values.image.repository)) }}
+        {{- if and .Values.driver.enabled (and (eq .Values.driver.kind "ebpf") (contains "clouddefense-no-driver" .Values.image.repository)) }}
         - name: debugfs
           mountPath: /sys/kernel/debug
         {{- end }}
@@ -190,7 +190,7 @@ spec:
         {{- end }}
         {{- end }}
         - mountPath: /etc/falco/falco.yaml
-          name: falco-yaml
+          name: clouddefense-yaml
           subPath: falco.yaml
         {{- if .Values.customRules }}
         - mountPath: /etc/falco/rules.d
@@ -201,7 +201,7 @@ spec:
           name: certs-volume
           readOnly: true
         {{- end }}
-        {{- include "falco.unixSocketVolumeMount"  . | nindent 8 -}}
+        {{- include "clouddefense.unixSocketVolumeMount"  . | nindent 8 -}}
         {{- with .Values.mounts.volumeMounts }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -214,34 +214,34 @@ spec:
         - mountPath: /host{{ .Values.gvisor.runsc.config }}
           name: runsc-config
         - mountPath: /gvisor-config
-          name: falco-gvisor-config
+          name: clouddefense-gvisor-config
         {{- end }}
-  {{- if .Values.falcoctl.artifact.follow.enabled }}
-    {{- include "falcoctl.sidecar" . | nindent 4 }}
+  {{- if .Values.clouddefensectl.artifact.follow.enabled }}
+    {{- include "clouddefensectl.sidecar" . | nindent 4 }}
   {{- end }}
   initContainers:
   {{- with .Values.extra.initContainers }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- if and .Values.gvisor.enabled }}
-  {{- include "falco.gvisor.initContainer" . | nindent 4 }}
+  {{- include "clouddefense.gvisor.initContainer" . | nindent 4 }}
   {{- end }}
   {{- if and .Values.driver.enabled (ne .Values.driver.kind "modern-bpf") }}
   {{- if.Values.driver.loader.enabled }}
-    {{- include "falco.driverLoader.initContainer" . | nindent 4 }}
+    {{- include "clouddefense.driverLoader.initContainer" . | nindent 4 }}
   {{- end }}
   {{- end }}
-  {{- if .Values.falcoctl.artifact.install.enabled }}
-    {{- include "falcoctl.initContainer" . | nindent 4 }}
+  {{- if .Values.clouddefensectl.artifact.install.enabled }}
+    {{- include "clouddefensectl.initContainer" . | nindent 4 }}
   {{- end }}
   volumes:
-    {{- if or .Values.falcoctl.artifact.install.enabled .Values.falcoctl.artifact.follow.enabled }}
+    {{- if or .Values.clouddefensectl.artifact.install.enabled .Values.clouddefensectl.artifact.follow.enabled }}
     - name: plugins-install-dir
       emptyDir: {}
     - name: rulesfiles-install-dir
       emptyDir: {}
     {{- end }}
-    - name: root-falco-fs
+    - name: root-clouddefense-fs
       emptyDir: {}
     {{- if .Values.driver.enabled }}  
     - name: boot-fs
@@ -263,9 +263,9 @@ spec:
         path: /dev
     - name: sys-fs
       hostPath:
-        path: /sys/module/falco
+        path: /sys/module/clouddefense
     {{- end }}
-    {{- if and .Values.driver.enabled (and (eq .Values.driver.kind "ebpf") (contains "falco-no-driver" .Values.image.repository)) }}
+    {{- if and .Values.driver.enabled (and (eq .Values.driver.kind "ebpf") (contains "clouddefense-no-driver" .Values.image.repository)) }}
     - name: debugfs
       hostPath:
         path: /sys/kernel/debug
@@ -306,25 +306,25 @@ spec:
       hostPath:
         path: {{ .Values.gvisor.runsc.config }}
         type: File
-    - name: falco-gvisor-config
+    - name: clouddefense-gvisor-config
       emptyDir: {}
     {{- end }}
-    - name: falcoctl-config-volume
+    - name: clouddefensectl-config-volume
       configMap: 
-        name: {{ include "falco.fullname" . }}-falcoctl
+        name: {{ include "clouddefense.fullname" . }}-clouddefensectl
         items:
-          - key: falcoctl.yaml
-            path: falcoctl.yaml
-    - name: falco-yaml
+          - key: clouddefensectl.yaml
+            path: clouddefensectl.yaml
+    - name: clouddefense-yaml
       configMap:
-        name: {{ include "falco.fullname" . }}
+        name: {{ include "clouddefense.fullname" . }}
         items:
-        - key: falco.yaml
-          path: falco.yaml
+        - key: clouddefense.yaml
+          path: clouddefense.yaml
     {{- if .Values.customRules }}
     - name: rules-volume
       configMap:
-        name: {{ include "falco.fullname" . }}-rules
+        name: {{ include "clouddefense.fullname" . }}-rules
     {{- end }}
     {{- if or .Values.certs.existingSecret (and .Values.certs.server.key .Values.certs.server.crt .Values.certs.ca.crt) }}
     - name: certs-volume
@@ -332,18 +332,18 @@ spec:
         {{- if .Values.certs.existingSecret }}
         secretName: {{ .Values.certs.existingSecret }}
         {{- else }}
-        secretName: {{ include "falco.fullname" . }}-certs
+        secretName: {{ include "clouddefense.fullname" . }}-certs
         {{- end }}
     {{- end }}
-    {{- include "falco.unixSocketVolume" . | nindent 4 -}}
+    {{- include "clouddefense.unixSocketVolume" . | nindent 4 -}}
     {{- with .Values.mounts.volumes }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
     {{- end -}}
 
-{{- define "falco.driverLoader.initContainer" -}}
+{{- define "clouddefense.driverLoader.initContainer" -}}
 - name: {{ .Chart.Name }}-driver-loader
-  image: {{ include "falco.driverLoader.image" . }}
+  image: {{ include "clouddefense.driverLoader.image" . }}
   imagePullPolicy: {{ .Values.driver.loader.initContainer.image.pullPolicy }}
   {{- with .Values.driver.loader.initContainer.args }}
   args:
@@ -360,8 +360,8 @@ spec:
     privileged: true
   {{- end }}
   volumeMounts:
-    - mountPath: /root/.falco
-      name: root-falco-fs
+    - mountPath: /root/.clouddefense
+      name: root-clouddefense-fs
     - mountPath: /host/proc
       name: proc-fs
       readOnly: true
@@ -378,15 +378,15 @@ spec:
       readOnly: true
   env:
   {{- if eq .Values.driver.kind "ebpf" }}
-    - name: FALCO_BPF_PROBE
+    - name: CLOUDDEFENSE_BPF_PROBE
       value: {{ .Values.driver.ebpf.path }}
   {{- end }}
   {{- if .Values.driver.loader.initContainer.env }}
-  {{- include "falco.renderTemplate" ( dict "value" .Values.driver.loader.initContainer.env "context" $) | nindent 4 }}
+  {{- include "clouddefense.renderTemplate" ( dict "value" .Values.driver.loader.initContainer.env "context" $) | nindent 4 }}
   {{- end }}
 {{- end -}}
 
-{{- define "falco.securityContext" -}}
+{{- define "clouddefense.securityContext" -}}
 {{- $securityContext := dict -}}
 {{- if .Values.driver.enabled -}}
   {{- if or (eq .Values.driver.kind "module") (eq .Values.driver.kind "modern-bpf") -}}
@@ -408,17 +408,17 @@ spec:
 {{- end -}}
 
 
-{{- define "falco.unixSocketVolumeMount" -}}
-{{- if and .Values.falco.grpc.enabled .Values.falco.grpc.bind_address (hasPrefix "unix://" .Values.falco.grpc.bind_address) }}
-- mountPath: {{ include "falco.unixSocketDir" . }}
+{{- define "clouddefense.unixSocketVolumeMount" -}}
+{{- if and .Values.clouddefense.grpc.enabled .Values.clouddefense.grpc.bind_address (hasPrefix "unix://" .Values.clouddefense.grpc.bind_address) }}
+- mountPath: {{ include "clouddefense.unixSocketDir" . }}
   name: grpc-socket-dir
 {{- end }}
 {{- end -}}
 
-{{- define "falco.unixSocketVolume" -}}
-{{- if and .Values.falco.grpc.enabled .Values.falco.grpc.bind_address (hasPrefix "unix://" .Values.falco.grpc.bind_address) }}
+{{- define "clouddefense.unixSocketVolume" -}}
+{{- if and .Values.clouddefense.grpc.enabled .Values.clouddefense.grpc.bind_address (hasPrefix "unix://" .Values.clouddefense.grpc.bind_address) }}
 - name: grpc-socket-dir
   hostPath:
-    path: {{ include "falco.unixSocketDir" . }}
+    path: {{ include "clouddefense.unixSocketDir" . }}
 {{- end }}
 {{- end -}}

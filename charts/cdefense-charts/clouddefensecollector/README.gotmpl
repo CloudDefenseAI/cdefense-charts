@@ -1,21 +1,21 @@
-# Falcosidekick
+# clouddefensecollector
 
-![falcosidekick](https://github.com/falcosecurity/falcosidekick/raw/master/imgs/falcosidekick_color.png)
+![clouddefensecollector](https://github.com/clouddefensesecurity/clouddefensecollector/raw/master/imgs/clouddefensecollector_color.png)
 
-![release](https://flat.badgen.net/github/release/falcosecurity/falcosidekick/latest?color=green) ![last commit](https://flat.badgen.net/github/last-commit/falcosecurity/falcosidekick) ![licence](https://flat.badgen.net/badge/license/MIT/blue) ![docker pulls](https://flat.badgen.net/docker/pulls/falcosecurity/falcosidekick?icon=docker)
+![release](https://flat.badgen.net/github/release/clouddefensesecurity/clouddefensecollector/latest?color=green) ![last commit](https://flat.badgen.net/github/last-commit/clouddefensesecurity/clouddefensecollector) ![licence](https://flat.badgen.net/badge/license/MIT/blue) ![docker pulls](https://flat.badgen.net/docker/pulls/clouddefensesecurity/clouddefensecollector?icon=docker)
 
 ## Description
 
-A simple daemon for connecting [`Falco`](https://github.com/falcosecurity/falco) to your ecossytem. It takes a `Falco`'s events and
+A simple daemon for connecting [`CloudDefense`](https://github.com/clouddefensesecurity/clouddefense) to your ecossytem. It takes a `CloudDefense`'s events and
 forward them to different outputs in a fan-out way.
 
-It works as a single endpoint for as many as you want `Falco` instances :
+It works as a single endpoint for as many as you want `CloudDefense` instances :
 
-![falco_with_falcosidekick](https://github.com/falcosecurity/falcosidekick/raw/master/imgs/falco_with_falcosidekick.png)
+![clouddefense_with_clouddefensecollector](https://github.com/clouddefensesecurity/clouddefensecollector/raw/master/imgs/clouddefense_with_clouddefensecollector.png)
 
 ## Outputs
 
-`Falcosidekick` manages a large variety of outputs with different purposes.
+`clouddefensecollector` manages a large variety of outputs with different purposes.
 
 ### Chat
 
@@ -31,9 +31,9 @@ It works as a single endpoint for as many as you want `Falco` instances :
 
 - [**Datadog**](https://www.datadoghq.com/)
 - [**Influxdb**](https://www.influxdata.com/products/influxdb-overview/)
-- [**StatsD**](https://github.com/statsd/statsd) (for monitoring of `falcosidekick`)
-- [**DogStatsD**](https://docs.datadoghq.com/developers/dogstatsd/?tab=go) (for monitoring of `falcosidekick`)
-- [**Prometheus**](https://prometheus.io/) (for both events and monitoring of `falcosidekick`)
+- [**StatsD**](https://github.com/statsd/statsd) (for monitoring of `clouddefensecollector`)
+- [**DogStatsD**](https://docs.datadoghq.com/developers/dogstatsd/?tab=go) (for monitoring of `clouddefensecollector`)
+- [**Prometheus**](https://prometheus.io/) (for both events and monitoring of `clouddefensecollector`)
 - [**Wavefront**](https://www.wavefront.com)
 
 ### Alerting
@@ -85,40 +85,40 @@ It works as a single endpoint for as many as you want `Falco` instances :
 ### Web
 
 - **Webhook**
-- [**WebUI**](https://github.com/falcosecurity/falcosidekick-ui) (a Web UI for displaying latest events in real time)
+- [**WebUI**](https://github.com/clouddefensesecurity/clouddefensecollector-ui) (a Web UI for displaying latest events in real time)
 
 ### Other
-- [**Policy Report**](https://github.com/kubernetes-sigs/wg-policy-prototypes/tree/master/policy-report/falco-adapter)
+- [**Policy Report**](https://github.com/kubernetes-sigs/wg-policy-prototypes/tree/master/policy-report/clouddefense-adapter)
 
-## Adding `falcosecurity` repository
+## Adding `clouddefensesecurity` repository
 
-Prior to install the chart, add the `falcosecurity` charts repository:
+Prior to install the chart, add the `clouddefensesecurity` charts repository:
 
 ```bash
-helm repo add falcosecurity https://falcosecurity.github.io/charts
+helm repo add clouddefensesecurity https://clouddefensesecurity.github.io/charts
 helm repo update
 ```
 
 ## Installing the Chart
 
-### Install Falco + Falcosidekick + Falcosidekick-ui
+### Install CloudDefense + clouddefensecollector + clouddefensecollector-ui
 
-To install the chart with the release name `falcosidekick` run:
-
-```bash
-helm install falcosidekick falcosecurity/falcosidekick --set webui.enabled=true
-```
-
-### With Helm chart of Falco
-
-`Falco`, `Falcosidekick` and `Falcosidekick-ui` can be installed together in one command. All values to configure `Falcosidekick` will have to be
-prefixed with `falcosidekick.`.
+To install the chart with the release name `clouddefensecollector` run:
 
 ```bash
-helm install falco falcosecurity/falco --set falcosidekick.enabled=true --set falcosidekick.webui.enabled=true
+helm install clouddefensecollector clouddefensesecurity/clouddefensecollector --set webui.enabled=true
 ```
 
-After a few seconds, Falcosidekick should be running.
+### With Helm chart of CloudDefense
+
+`CloudDefense`, `clouddefensecollector` and `clouddefensecollector-ui` can be installed together in one command. All values to configure `clouddefensecollector` will have to be
+prefixed with `clouddefensecollector.`.
+
+```bash
+helm install clouddefense clouddefensesecurity/clouddefense --set clouddefensecollector.enabled=true --set clouddefensecollector.webui.enabled=true
+```
+
+After a few seconds, clouddefensecollector should be running.
 
 > **Tip**: List all releases using `helm list`, a release is a name used to track a specific deployment
 
@@ -128,17 +128,17 @@ The minimum Kubernetes version required is 1.17.x
 
 ## Uninstalling the Chart
 
-To uninstall the `falcosidekick` deployment:
+To uninstall the `clouddefensecollector` deployment:
 
 ```bash
-helm uninstall falcosidekick
+helm uninstall clouddefensecollector
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## Configuration
 
-The following table lists the main configurable parameters of the Falcosidekick chart and their default values. See `values.yaml` for full list.
+The following table lists the main configurable parameters of the clouddefensecollector chart and their default values. See `values.yaml` for full list.
 
 {{ template "chart.valuesSection" . }}
 

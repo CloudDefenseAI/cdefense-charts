@@ -1,5 +1,5 @@
 {{- if eq .Values.controller.kind "daemonset" }}
-Falco agents are spinning up on each node in your cluster. After a few
+CloudDefense agents are spinning up on each node in your cluster. After a few
 seconds, they are going to start monitoring your containers looking for
 security issues.
 {{printf "\n" }}
@@ -10,22 +10,22 @@ WARNING: The following integrations have been deprecated and removed
  - natsOutput
  - snsOutput
  - pubsubOutput
-Consider to use falcosidekick (https://github.com/falcosecurity/falcosidekick) as replacement.
+Consider to use clouddefensecollector (https://github.com/clouddefensesecurity/clouddefensecollector) as replacement.
 {{- else }}
 No further action should be required.
 {{- end }}
 {{printf "\n" }}
 
-{{- if not .Values.falcosidekick.enabled }}
+{{- if not .Values.clouddefensecollector.enabled }}
 Tip: 
-You can easily forward Falco events to Slack, Kafka, AWS Lambda and more with falcosidekick. 
-Full list of outputs: https://github.com/falcosecurity/charts/tree/master/falcosidekick.
-You can enable its deployment with `--set falcosidekick.enabled=true` or in your values.yaml. 
-See: https://github.com/falcosecurity/charts/blob/master/falcosidekick/values.yaml for configuration values.
+You can easily forward CloudDefense events to Slack, Kafka, AWS Lambda and more with clouddefensecollector. 
+Full list of outputs: https://github.com/clouddefensesecurity/charts/tree/master/clouddefensecollector.
+You can enable its deployment with `--set clouddefensecollector.enabled=true` or in your values.yaml. 
+See: https://github.com/clouddefensesecurity/charts/blob/master/clouddefensecollector/values.yaml for configuration values.
 {{- end}}
 
-{{- if and (not (empty .Values.falco.load_plugins)) (or .Values.falcoctl.artifact.follow.enabled .Values.falcoctl.artifact.install.enabled) }}
+{{- if and (not (empty .Values.clouddefense.load_plugins)) (or .Values.clouddefensectl.artifact.follow.enabled .Values.clouddefensectl.artifact.install.enabled) }}
 
 WARNING:
-{{ printf "It seems you are loading the following plugins %v, please make sure to install them by adding the correct reference to falcoctl.config.artifact.install.refs: %v" .Values.falco.load_plugins .Values.falcoctl.config.artifact.install.refs -}}
+{{ printf "It seems you are loading the following plugins %v, please make sure to install them by adding the correct reference to clouddefensectl.config.artifact.install.refs: %v" .Values.clouddefense.load_plugins .Values.clouddefensectl.config.artifact.install.refs -}}
 {{- end }}

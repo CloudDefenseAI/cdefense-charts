@@ -2,9 +2,9 @@
 kind: ClusterRole
 apiVersion: {{ include "rbac.apiVersion" . }}
 metadata:
-  name: {{ include "falco.fullname" . }}
+  name: {{ include "clouddefense.fullname" . }}
   labels:
-    {{- include "falco.labels" . | nindent 4 }}
+    {{- include "clouddefense.labels" . | nindent 4 }}
 rules:
   - apiGroups:
       - extensions

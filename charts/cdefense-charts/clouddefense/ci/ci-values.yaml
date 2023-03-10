@@ -1,4 +1,4 @@
-# CI values for Falco.
+# CI values for CloudDefense.
 # The following values will bypass the installation of the kernel module
 # and disable the kernel space driver.
 
@@ -6,11 +6,11 @@
 driver:
   enabled: false
 
-# make Falco run in userspace only mode
+# make CloudDefense run in userspace only mode
 extra:
   args:
     - --userspace
 
-# enforce /proc mounting since Falco still tries to scan it
+# enforce /proc mounting since CloudDefense still tries to scan it
 mounts:
   enforceProcMount: true
