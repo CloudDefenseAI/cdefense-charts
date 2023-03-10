@@ -59,7 +59,7 @@ spec:
       securityContext:
         {{- include "clouddefense.securityContext" . | nindent 8 }}
       args:
-        - /usr/bin/clouddefense
+        - /usr/bin/falco
         {{- if and .Values.driver.enabled (eq .Values.driver.kind "modern-bpf") }}
         - --modern-bpf
         {{- end }}
@@ -87,7 +87,7 @@ spec:
         - {{ .kubernetes.apiUrl }}
         {{- if .kubernetes.enableNodeFilter }}
         - --k8s-node
-        - "$(CLOUDDEFENSE_K8S_NODE_NAME)"
+        - "$(FALCO_K8S_NODE_NAME)"
         {{- end }}
         {{- end }}
         - -pk
@@ -97,12 +97,12 @@ spec:
       {{- toYaml . | nindent 8 }}
     {{- end }}
       env:
-        - name: CLOUDDEFENSE_K8S_NODE_NAME
+        - name: FALCO_K8S_NODE_NAME
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
       {{- if and .Values.driver.enabled (eq .Values.driver.kind "ebpf") }}
-        - name: CLOUDDEFENSE_BPF_PROBE
+        - name: FALCO_BPF_PROBE
           value: {{ .Values.driver.ebpf.path }}
       {{- end }}
       {{- if .Values.extra.env }}
@@ -143,7 +143,7 @@ spec:
       {{- end }}
       {{- end }}
         - mountPath: /root/.falco
-          name: root-clouddefense-fs
+          name: root-falco-fs
         {{- if or .Values.driver.enabled .Values.mounts.enforceProcMount }}
         - mountPath: /host/proc
           name: proc-fs
@@ -167,9 +167,9 @@ spec:
           name: dev-fs
           readOnly: true
         - name: sys-fs
-          mountPath: /sys/module/clouddefense
+          mountPath: /sys/module/falco
         {{- end }}
-        {{- if and .Values.driver.enabled (and (eq .Values.driver.kind "ebpf") (contains "clouddefense-no-driver" .Values.image.repository)) }}
+        {{- if and .Values.driver.enabled (and (eq .Values.driver.kind "ebpf") (contains "falco-no-driver" .Values.image.repository)) }}
         - name: debugfs
           mountPath: /sys/kernel/debug
         {{- end }}
@@ -189,9 +189,9 @@ spec:
         {{- end }}
         {{- end }}
         {{- end }}
-        - mountPath: /etc/falco/falco.yaml
-          name: clouddefense-yaml
-          subPath: falco.yaml
+        - mountPath: /etc/falco/clouddefense.yaml
+          name: falco-yaml
+          subPath: clouddefense.yaml
         {{- if .Values.customRules }}
         - mountPath: /etc/falco/rules.d
           name: rules-volume
@@ -214,7 +214,7 @@ spec:
         - mountPath: /host{{ .Values.gvisor.runsc.config }}
           name: runsc-config
         - mountPath: /gvisor-config
-          name: clouddefense-gvisor-config
+          name: falco-gvisor-config
         {{- end }}
   {{- if .Values.clouddefensectl.artifact.follow.enabled }}
     {{- include "clouddefensectl.sidecar" . | nindent 4 }}
@@ -241,7 +241,7 @@ spec:
     - name: rulesfiles-install-dir
       emptyDir: {}
     {{- end }}
-    - name: root-clouddefense-fs
+    - name: root-falco-fs
       emptyDir: {}
     {{- if .Values.driver.enabled }}  
     - name: boot-fs
@@ -263,9 +263,9 @@ spec:
         path: /dev
     - name: sys-fs
       hostPath:
-        path: /sys/module/clouddefense
+        path: /sys/module/falco
     {{- end }}
-    {{- if and .Values.driver.enabled (and (eq .Values.driver.kind "ebpf") (contains "clouddefense-no-driver" .Values.image.repository)) }}
+    {{- if and .Values.driver.enabled (and (eq .Values.driver.kind "ebpf") (contains "falco-no-driver" .Values.image.repository)) }}
     - name: debugfs
       hostPath:
         path: /sys/kernel/debug
@@ -306,7 +306,7 @@ spec:
       hostPath:
         path: {{ .Values.gvisor.runsc.config }}
         type: File
-    - name: clouddefense-gvisor-config
+    - name: falco-gvisor-config
       emptyDir: {}
     {{- end }}
     - name: clouddefensectl-config-volume
@@ -315,7 +315,7 @@ spec:
         items:
           - key: clouddefensectl.yaml
             path: clouddefensectl.yaml
-    - name: clouddefense-yaml
+    - name: falco-yaml
       configMap:
         name: {{ include "clouddefense.fullname" . }}
         items:
@@ -360,8 +360,8 @@ spec:
     privileged: true
   {{- end }}
   volumeMounts:
-    - mountPath: /root/.clouddefense
-      name: root-clouddefense-fs
+    - mountPath: /root/.falco
+      name: root-falco-fs
     - mountPath: /host/proc
       name: proc-fs
       readOnly: true
@@ -378,7 +378,7 @@ spec:
       readOnly: true
   env:
   {{- if eq .Values.driver.kind "ebpf" }}
-    - name: CLOUDDEFENSE_BPF_PROBE
+    - name: FALCO_BPF_PROBE
       value: {{ .Values.driver.ebpf.path }}
   {{- end }}
   {{- if .Values.driver.loader.initContainer.env }}
