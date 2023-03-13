@@ -3,7 +3,7 @@ appVersion: 2.27.0
 description: Connect CloudDefense to your ecosystem
 icon: https://raw.githubusercontent.com/clouddefensesecurity/clouddefensecollector/master/imgs/clouddefensecollector_color.png
 name: clouddefensecollector
-version: 0.5.16
+version: 0.5.17
 keywords:
   - monitoring
   - security
