@@ -3,11 +3,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "falcosidekick.fullname" . }}-ui
+  name: {{ include "clouddefensecollector.fullname" . }}-ui
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/name: {{ include "falcosidekick.name" . }}-ui
-    helm.sh/chart: {{ include "falcosidekick.chart" . }}
+    app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}-ui
+    helm.sh/chart: {{ include "clouddefensecollector.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}-ui
     app.kubernetes.io/managed-by: {{ .Release.Service }}
   {{- with .Values.webui.service.annotations }}
@@ -25,18 +25,18 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "falcosidekick.name" . }}-ui
+    app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}-ui
     app.kubernetes.io/instance: {{ .Release.Name }}-ui
 {{- if .Values.webui.redis.enabled }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "falcosidekick.fullname" . }}-ui-redis
+  name: {{ include "clouddefensecollector.fullname" . }}-ui-redis
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/name: {{ include "falcosidekick.name" . }}-ui-redis
-    helm.sh/chart: {{ include "falcosidekick.chart" . }}
+    app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}-ui-redis
+    helm.sh/chart: {{ include "clouddefensecollector.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}-ui
     app.kubernetes.io/managed-by: {{ .Release.Service }}
   {{- with .Values.webui.redis.service.annotations }}
@@ -51,7 +51,7 @@ spec:
       protocol: TCP
       name: redis
   selector:
-    app.kubernetes.io/name: {{ include "falcosidekick.name" . }}-ui-redis
+    app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}-ui-redis
     app.kubernetes.io/instance: {{ .Release.Name }}-ui-redis
 {{- end }}
 {{- end }}

@@ -1,0 +1,12 @@
+{{- if or .Values.clouddefensectl.artifact.install.enabled .Values.clouddefensectl.artifact.follow.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "clouddefense.fullname" . }}-clouddefensectl
+  namespace: {{ include "clouddefense.namespace" . }}
+  labels:
+    {{- include "clouddefense.labels" . | nindent 4 }}
+data:
+  clouddefensectl.yaml: |-
+    {{- toYaml .Values.clouddefensectl.config | nindent 4 }}
+{{- end }}

@@ -1,13 +1,13 @@
 # Change Log
 
-This file documents all notable changes to Falcosidekick Helm Chart. The release
+This file documents all notable changes to clouddefensecollector Helm Chart. The release
 numbering uses [semantic versioning](http://semver.org).
 
-Before release 0.1.20, the helm chart can be found in `falcosidekick` [repository](https://github.com/falcosecurity/falcosidekick/tree/master/deploy/helm/falcosidekick).
+Before release 0.1.20, the helm chart can be found in `clouddefensecollector` [repository](https://github.com/clouddefensesecurity/clouddefensecollector/tree/master/deploy/helm/clouddefensecollector).
 
 ## 0.5.16
 
-* Add `affinity`, `nodeSelector` and `tolerations` values for the Falcosidekick test-connection pod
+* Add `affinity`, `nodeSelector` and `tolerations` values for the clouddefensecollector test-connection pod
 
 ## 0.5.15
 
@@ -15,24 +15,24 @@ Before release 0.1.20, the helm chart can be found in `falcosidekick` [repositor
 
 ## 0.5.14
 
-* Fix Prometheus extralabels configuration in Falcosidekick
+* Fix Prometheus extralabels configuration in clouddefensecollector
 
 ## 0.5.13
 
-* Fix missing quotes in Falcosidekick-UI ttl argument
+* Fix missing quotes in clouddefensecollector-UI ttl argument
 
 ## 0.5.12
 
-* Fix missing space in Falcosidekick-UI ttl argument
+* Fix missing space in clouddefensecollector-UI ttl argument
 
 ## 0.5.11
 
-* Fix missing space in Falcosidekick-UI arguments
+* Fix missing space in clouddefensecollector-UI arguments
 
 ## 0.5.10
 
-* upgrade Falcosidekick image to 2.27.0
-* upgrade Falcosidekick-UI image to 2.1.0
+* upgrade clouddefensecollector image to 2.27.0
+* upgrade clouddefensecollector-UI image to 2.1.0
 * Add `Yandex Data Streams` output
 * Add `Node-Red` output
 * Add `MQTT` output
@@ -52,9 +52,9 @@ Before release 0.1.20, the helm chart can be found in `falcosidekick` [repositor
 * Add `config.loki.user`, `config.loki.apikey` to manage auth to Grafana Cloud for `Loki` output
 * Add `config.kafka.sasl`, `config.kafka.async`, `config.kafka.compression`, `config.kafka.balancer`, `config.kafka.clientid` to manage auth and communication for `Kafka` output
 * Add `config.syslog.format` to manage the format of `Syslog` payload
-* Add `webui.ttl` to set TTL of keys in Falcosidekick-UI
-* Add `webui.loglevel` to set log level in Falcosidekick-UI
-* Add `webui.user` to set log user:password in Falcosidekick-UI
+* Add `webui.ttl` to set TTL of keys in clouddefensecollector-UI
+* Add `webui.loglevel` to set log level in clouddefensecollector-UI
+* Add `webui.user` to set log user:password in clouddefensecollector-UI
 
 ## 0.5.9
 
@@ -86,15 +86,15 @@ Before release 0.1.20, the helm chart can be found in `falcosidekick` [repositor
 
 ## 0.5.3
 
-* Support full configuration of `securityContext` blocks in falcosidekick and falcosidekick-ui deployments, and redis statefulset.
+* Support full configuration of `securityContext` blocks in clouddefensecollector and clouddefensecollector-ui deployments, and redis statefulset.
 
 ## 0.5.2
 
-* Update Falcosidekick-UI image (fix wrong redirect to localhost when an ingress is used)
+* Update clouddefensecollector-UI image (fix wrong redirect to localhost when an ingress is used)
 
 ## 0.5.1
 
-* Support `ingressClassName` field in falcosidekick ingresses.
+* Support `ingressClassName` field in clouddefensecollector ingresses.
 
 ## 0.5.0
 
@@ -105,7 +105,7 @@ Before release 0.1.20, the helm chart can be found in `falcosidekick` [repositor
 * Add `AWS Kinesis` output
 * Add `Zoho Cliq` output
 * Support IRSA for AWS authentication
-* Upgrade Falcosidekick-UI to v2.0.1
+* Upgrade clouddefensecollector-UI to v2.0.1
 
 ### Minor changes
 
@@ -170,7 +170,7 @@ Before release 0.1.20, the helm chart can be found in `falcosidekick` [repositor
 
 ### Minor changes
 
-* Enable extra volumes and volumemounts for `falcosidekick` via values
+* Enable extra volumes and volumemounts for `clouddefensecollector` via values
 
 ## 0.3.12
 
@@ -180,7 +180,7 @@ Before release 0.1.20, the helm chart can be found in `falcosidekick` [repositor
 
 ### Minor changes
 
-* Make image registries for `falcosidekick` and `falcosidekick-ui` configurable
+* Make image registries for `clouddefensecollector` and `clouddefensecollector-ui` configurable
 
 ## 0.3.10
 
@@ -192,7 +192,7 @@ Before release 0.1.20, the helm chart can be found in `falcosidekick` [repositor
 
 ### Fixes
 
-* Add missing `imagePullSecrets` in `falcosidekick/templates/deployment-ui.yaml`
+* Add missing `imagePullSecrets` in `clouddefensecollector/templates/deployment-ui.yaml`
 
 ## 0.3.8
 
@@ -221,13 +221,13 @@ Before release 0.1.20, the helm chart can be found in `falcosidekick` [repositor
 
 ### Minor Changes
 
-* Fix link to Falco in the `README.md`
+* Fix link to CloudDefense in the `README.md`
 
 ## 0.3.4
 
 ### Major Changes
 
-* Bump up version (`v1.0.1`) of image for `falcosidekick-ui`
+* Bump up version (`v1.0.1`) of image for `clouddefensecollector-ui`
 
 ## 0.3.3
 
@@ -262,7 +262,7 @@ Before release 0.1.20, the helm chart can be found in `falcosidekick` [repositor
 
 ### Major Changes
 
-* Updated falcosidekuck-ui default image version to `v0.2.0`
+* Updated clouddefensesidekuck-ui default image version to `v0.2.0`
 
 ## 0.2.8
 
@@ -380,7 +380,7 @@ Before release 0.1.20, the helm chart can be found in `falcosidekick` [repositor
 
 ## 0.1.29
 
-* Fix falcosidekick configuration table to use full path of configuration properties in the `README.md`
+* Fix clouddefensecollector configuration table to use full path of configuration properties in the `README.md`
 
 ## 0.1.28
 
@@ -485,7 +485,7 @@ Before release 0.1.20, the helm chart can be found in `falcosidekick` [repositor
 
 ### Major Changes
 
-* `Falcosidekick` and its chart are now part of `falcosecurity` organization
+* `clouddefensecollector` and its chart are now part of `clouddefensesecurity` organization
 
 ## 0.1.4
 
@@ -515,4 +515,4 @@ Before release 0.1.20, the helm chart can be found in `falcosidekick` [repositor
 
 ### Major Changes
 
-* Initial release of Falcosidekick Helm Chart
+* Initial release of clouddefensecollector Helm Chart

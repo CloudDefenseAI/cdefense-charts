@@ -1,4 +1,4 @@
-# Default values for falcosidekick.
+# Default values for clouddefensecollector.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -54,9 +54,9 @@ config:
   extraEnv: []
   # -- DEBUG environment variable
   debug: false
-  # -- a list of escaped comma separated custom fields to add to falco events, syntax is "key:value\,key:value"
+  # -- a list of escaped comma separated custom fields to add to clouddefense events, syntax is "key:value\,key:value"
   customfields: ""
-  # -- a list of escaped comma separated Go templated fields to add to falco events, syntax is "key:template\,key:template"
+  # -- a list of escaped comma separated Go templated fields to add to clouddefense events, syntax is "key:template\,key:template"
   templatedfields: ""
 
   # -- folder which will used to store client.crt, client.key and ca.crt files for mutual tls (default: "/etc/certs")
@@ -140,7 +140,7 @@ config:
   alertmanager:
     # -- AlertManager <http://host:port>, if not `empty`, AlertManager is *enabled*
     hostport: ""
-    # -- alertmanager endpoint on which falcosidekick posts alerts, choice is: `"/api/v1/alerts" or "/api/v2/alerts" , default is "/api/v1/alerts"`
+    # -- alertmanager endpoint on which clouddefensecollector posts alerts, choice is: `"/api/v1/alerts" or "/api/v2/alerts" , default is "/api/v1/alerts"`
     endpoint: "/api/v1/alerts"
     # -- minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""`
     minimumpriority: ""
@@ -159,7 +159,7 @@ config:
     # -- Elasticsearch <http://host:port>, if not `empty`, Elasticsearch is *enabled*
     hostport: ""
     # -- Elasticsearch index
-    index: "falco"
+    index: "clouddefense"
     # -- Elasticsearch document type
     type: "_doc"
     # date suffix for index rotation : daily, monthly, annually, none
@@ -179,7 +179,7 @@ config:
     # -- Influxdb <http://host:port>, if not `empty`, Influxdb is *enabled*
     hostport: ""
     # -- Influxdb database
-    database: "falco"
+    database: "clouddefense"
     # -- Influxdb organization
     organization: ""
     # -- write precision
@@ -246,7 +246,7 @@ config:
     checkcert: true
 
   aws:
-    # -- AWS IAM role ARN for falcosidekick service account to associate with (optionnal if you use EC2 Instance Profile)
+    # -- AWS IAM role ARN for clouddefensecollector service account to associate with (optionnal if you use EC2 Instance Profile)
     rolearn: ""
     # -- AWS Access Key Id (optionnal if you use EC2 Instance Profile)
     accesskeyid: ""
@@ -259,7 +259,7 @@ config:
     cloudwatchlogs:
       # -- AWS CloudWatch Logs Group name, if not empty, CloudWatch Logs output is *enabled*
       loggroup: ""
-      # -- AWS CloudWatch Logs Stream name, if empty, Falcosidekick will try to create a log stream
+      # -- AWS CloudWatch Logs Stream name, if empty, clouddefensecollector will try to create a log stream
       logstream: ""
       # -- minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""`
       minimumpriority: ""
@@ -271,7 +271,7 @@ config:
     sns:
       # -- AWS SNS TopicARN, if not empty, AWS SNS output is *enabled*
       topicarn: ""
-      # -- Send RawJSON from `falco` or parse it to AWS SNS
+      # -- Send RawJSON from `clouddefense` or parse it to AWS SNS
       rawjson: false
       # -- minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""`
       minimumpriority: ""
@@ -348,13 +348,13 @@ config:
     # -- The address for the StatsD forwarder, in the form <http://host:port>, if not empty StatsD is *enabled*
     forwarder: ""
     # -- A prefix for all metrics
-    namespace: "falcosidekick."
+    namespace: "clouddefensecollector."
 
   dogstatsd:
     # -- The address for the DogStatsD forwarder, in the form <http://host:port>, if not empty DogStatsD is *enabled*
     forwarder: ""
     # -- A prefix for all metrics
-    namespace: "falcosidekick."
+    namespace: "clouddefensecollector."
     # -- A comma-separated list of tags to add to all metrics
     tags: ""
 
@@ -522,8 +522,8 @@ config:
     endpointtoken: ""
     # -- Port to send metrics. Only used when endpointtype is 'proxy'
     endpointmetricport: 2878
-    # -- Metric to be created in Wavefront. Defaults to falco.alert
-    metricname: "falco.alert"
+    # -- Metric to be created in Wavefront. Defaults to clouddefense.alert
+    metricname: "clouddefense.alert"
     # -- Wavefront batch size. If empty uses the default 10000. Only used when endpointtype is 'direct'
     batchsize: 10000
     # -- Wavefront flush interval in seconds. Defaults to 1
@@ -629,7 +629,7 @@ config:
   policyreport:
     # -- if true; policyreport output is *enabled*
     enabled: false
-    # -- Kubeconfig file to use (only if falcosidekick is running outside the cluster)
+    # -- Kubeconfig file to use (only if clouddefensecollector is running outside the cluster)
     kubeconfig: "~/.kube/config"
     # -- the max number of events that can be in a policyreport
     maxevents: 1000
@@ -656,7 +656,7 @@ config:
     # -- Broker address, can start with tcp:// or ssl://, if not empty, MQTT output is enabled
     broker: ""
     # -- Topic for messages
-    topic: "falco/events"
+    topic: "clouddefense/events"
     # -- QOS for messages
     qos: 0
     # -- If true, messages are retained
@@ -674,7 +674,7 @@ config:
     # -- http://{domain or ip}:{port}, if not empty, ZincSearch output is enabled
     hostport: ""
     # -- index
-    index: "falco"
+    index: "clouddefense"
     # -- use this username to authenticate to ZincSearch
     username: ""
     # -- use this password to authenticate to ZincSearch
@@ -712,7 +712,7 @@ config:
     # -- Spyderbat API url
     apiurl: "https://api.spyderbat.com"
     # -- Spyderbat source ID, max 32 characters
-    source: "falcosidekick"
+    source: "clouddefensecollector"
     # -- Spyderbat source description and display name if not empty, max 256 characters
     sourcedescription: ""
     # -- minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""`
@@ -729,8 +729,8 @@ config:
     password: "postgres"
     # -- TimescaleDB database used
     database: ""
-    # -- Hypertable to store data events (default: falco_events) See TimescaleDB setup for more info
-    hypertablename: "falco_events"
+    # -- Hypertable to store data events (default: clouddefense_events) See TimescaleDB setup for more info
+    hypertablename: "clouddefense_events"
     # -- minimum priority of event to use this output, order is `emergency\|alert\|critical\|error\|warning\|notice\|informational\|debug or ""`
     minimumpriority: ""
 
@@ -752,7 +752,7 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   # -- Ingress hosts
   hosts:
-    - host: falcosidekick.local
+    - host: clouddefensecollector.local
       paths:
         - path: /
           # -- pathType (e.g. ImplementationSpecific, Prefix, .. etc.)
@@ -763,7 +763,7 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-# -- The resources for falcosdekick pods
+# -- The resources for clouddefensesdekick pods
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -789,7 +789,7 @@ affinity: {}
 extraVolumes: []
 # - name: optional-mtls-volume
 #   configMap:
-#     name: falco-certs-optional
+#     name: clouddefense-certs-optional
 #     optional: true
 #     items:
 #       - key: mtlscert.optional.tls
@@ -811,7 +811,7 @@ testConnection:
   affinity: {}
 
 webui:
-  # -- enable Falcosidekick-UI
+  # -- enable clouddefensecollector-UI
   enabled: false
   # -- number of running pods
   replicaCount: 2
@@ -849,8 +849,8 @@ webui:
 
   service:
     # -- The web UI service type
-    type: ClusterIP
-    # -- The web UI service port dor the falcosidekick-ui
+    type: NodePort
+    # -- The web UI service port dor the clouddefensecollector-ui
     port: 2802
     # -- The web UI service nodePort
     nodePort: 30282
@@ -869,7 +869,7 @@ webui:
       # kubernetes.io/tls-acme: "true"
     # --  Web UI ingress hosts configuration
     hosts:
-      - host: falcosidekick-ui.local
+      - host: clouddefensecollector-ui.local
         paths:
         - path: /
     # --  Web UI ingress TLS configuration
@@ -933,7 +933,7 @@ webui:
     service:
       # -- The web UI Redis service type (i. e: LoadBalancer)
       type: ClusterIP
-      # -- The web UI Redis service port dor the falcosidekick-ui
+      # -- The web UI Redis service port dor the clouddefensecollector-ui
       port: 6379
       # -- The web UI Redis service targetPort
       targetPort: 6379

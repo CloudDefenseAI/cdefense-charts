@@ -2,26 +2,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "falcosidekick.fullname" . }}
+  name: {{ include "clouddefensecollector.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/name: {{ include "falcosidekick.name" . }}
-    helm.sh/chart: {{ include "falcosidekick.chart" . }}
+    app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}
+    helm.sh/chart: {{ include "clouddefensecollector.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "falcosidekick.name" . }}
+      app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "falcosidekick.name" . }}
+        app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         {{- if and .Values.config.azure.podIdentityClientID .Values.config.azure.podIdentityName }}
-        aadpodidbinding: {{ include "falcosidekick.fullname" . }}
+        aadpodidbinding: {{ include "clouddefensecollector.fullname" . }}
         {{- end }}
       {{- if .Values.podLabels }}
 {{ toYaml .Values.podLabels | indent 8 }}
@@ -34,7 +34,7 @@ spec:
     spec:
       imagePullSecrets:
       - name: regcred
-      serviceAccountName: {{ include "falcosidekick.fullname" . }}
+      serviceAccountName: {{ include "clouddefensecollector.fullname" . }}
       {{- if .Values.priorityClassName }}
       priorityClassName: "{{ .Values.priorityClassName }}"
       {{- end }}
@@ -71,7 +71,7 @@ spec:
                 {{- if .Values.config.existingSecret }}
                 name: {{ .Values.config.existingSecret }}
                 {{- else }}
-                name: {{ include "falcosidekick.fullname" . }}
+                name: {{ include "clouddefensecollector.fullname" . }}
                 {{- end }}
           env:
             - name: DEBUG

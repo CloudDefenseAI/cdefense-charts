@@ -1,16 +1,16 @@
 {{- if and .Values.webui.enabled .Values.webui.ingress.enabled -}}
-{{- $fullName := include "falcosidekick.fullname" . -}}
-{{- $ingressApiIsStable := eq (include "falcosidekick.ingress.isStable" .) "true" -}}
-{{- $ingressSupportsPathType := eq (include "falcosidekick.ingress.supportsPathType" .) "true" -}}
+{{- $fullName := include "clouddefensecollector.fullname" . -}}
+{{- $ingressApiIsStable := eq (include "clouddefensecollector.ingress.isStable" .) "true" -}}
+{{- $ingressSupportsPathType := eq (include "clouddefensecollector.ingress.supportsPathType" .) "true" -}}
 ---
-apiVersion: {{ include "falcosidekick.ingress.apiVersion" . }}
+apiVersion: {{ include "clouddefensecollector.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}-ui
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/name: {{ include "falcosidekick.name" . }}-ui
-    helm.sh/chart: {{ include "falcosidekick.chart" . }}
+    app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}-ui
+    helm.sh/chart: {{ include "clouddefensecollector.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}-ui
     app.kubernetes.io/managed-by: {{ .Release.Service }}
   {{- with .Values.webui.ingress.annotations }}

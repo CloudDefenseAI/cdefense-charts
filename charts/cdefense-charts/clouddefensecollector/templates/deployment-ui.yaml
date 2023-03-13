@@ -8,23 +8,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "falcosidekick.fullname" . }}-ui
+  name: {{ include "clouddefensecollector.fullname" . }}-ui
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/name: {{ include "falcosidekick.name" . }}-ui
-    helm.sh/chart: {{ include "falcosidekick.chart" . }}
+    app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}-ui
+    helm.sh/chart: {{ include "clouddefensecollector.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}-ui
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.webui.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "falcosidekick.name" . }}-ui
+      app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}-ui
       app.kubernetes.io/instance: {{ .Release.Name }}-ui
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "falcosidekick.name" . }}-ui
+        app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}-ui
         app.kubernetes.io/instance: {{ .Release.Name }}-ui
       {{- if .Values.webui.podLabels }}
 {{ toYaml .Values.webui.podLabels | indent 8 }}
@@ -36,7 +36,7 @@ spec:
     spec:
       imagePullSecrets:
       - name: regcred
-      serviceAccountName: {{ include "falcosidekick.fullname" . }}-ui
+      serviceAccountName: {{ include "clouddefensecollector.fullname" . }}-ui
       {{- if .Values.webui.priorityClassName }}
       priorityClassName: "{{ .Values.webui.priorityClassName }}"
       {{- end }}
@@ -51,7 +51,7 @@ spec:
           args:
             - "-r"
             {{- if .Values.webui.redis.enabled }}
-            - {{ include "falcosidekick.fullname" . }}-ui-redis{{ if .Values.webui.redis.fullfqdn }}.{{ .Release.Namespace }}.svc.cluster.local{{ end }}:{{ .Values.webui.redis.service.port | default "6379" }}
+            - {{ include "clouddefensecollector.fullname" . }}-ui-redis{{ if .Values.webui.redis.fullfqdn }}.{{ .Release.Namespace }}.svc.cluster.local{{ end }}:{{ .Values.webui.redis.service.port | default "6379" }}
             {{- else if .Values.webui.externalRedis.enabled }}
             - "{{ required "External Redis is enabled. Please set the URL to the database." .Values.webui.externalRedis.url }}:{{ .Values.webui.externalRedis.port | default "6379" }}"
             {{- end}}
@@ -106,24 +106,24 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "falcosidekick.fullname" . }}-ui-redis
+  name: {{ include "clouddefensecollector.fullname" . }}-ui-redis
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/name: {{ include "falcosidekick.name" . }}-ui-redis
-    helm.sh/chart: {{ include "falcosidekick.chart" . }}
+    app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}-ui-redis
+    helm.sh/chart: {{ include "clouddefensecollector.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}-ui
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   replicas: 1
-  serviceName: {{ include "falcosidekick.fullname" . }}-ui-redis
+  serviceName: {{ include "clouddefensecollector.fullname" . }}-ui-redis
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "falcosidekick.name" . }}-ui-redis
+      app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}-ui-redis
       app.kubernetes.io/instance: {{ .Release.Name }}-ui-redis
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "falcosidekick.name" . }}-ui-redis
+        app.kubernetes.io/name: {{ include "clouddefensecollector.name" . }}-ui-redis
         app.kubernetes.io/instance: {{ .Release.Name }}-ui-redis
       {{- if .Values.webui.redis.podLabels }}
 {{ toYaml .Values.webui.redis.podLabels | indent 8 }}
@@ -139,7 +139,7 @@ spec:
         - name: {{ . }}
       {{- end }}
       {{- end }}
-      serviceAccountName: {{ include "falcosidekick.fullname" . }}-ui
+      serviceAccountName: {{ include "clouddefensecollector.fullname" . }}-ui
       {{- if .Values.webui.redis.priorityClassName }}
       priorityClassName: "{{ .Values.webui.redis.priorityClassName }}"
       {{- end }}
@@ -178,7 +178,7 @@ spec:
           {{- end }}
           {{- if .Values.webui.redis.storageEnabled }}
           volumeMounts:
-          - name: {{ include "falcosidekick.fullname" . }}-ui-redis-data
+          - name: {{ include "clouddefensecollector.fullname" . }}-ui-redis-data
             mountPath: /data
           {{- end }}
           resources:
@@ -198,7 +198,7 @@ spec:
   {{- if .Values.webui.redis.storageEnabled }}
   volumeClaimTemplates:
     - metadata:
-        name: {{ include "falcosidekick.fullname" . }}-ui-redis-data
+        name: {{ include "clouddefensecollector.fullname" . }}-ui-redis-data
       spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:

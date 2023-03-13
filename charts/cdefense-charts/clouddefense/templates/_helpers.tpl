@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "falco.name" -}}
+{{- define "clouddefense.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "falco.fullname" -}}
+{{- define "clouddefense.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,23 +26,23 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "falco.chart" -}}
+{{- define "clouddefense.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Allow the release namespace to be overridden
 */}}
-{{- define "falco.namespace" -}}
+{{- define "clouddefense.namespace" -}}
 {{- default .Release.Namespace .Values.namespaceOverride -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "falco.labels" -}}
-helm.sh/chart: {{ include "falco.chart" . }}
-{{ include "falco.selectorLabels" . }}
+{{- define "clouddefense.labels" -}}
+helm.sh/chart: {{ include "clouddefense.chart" . }}
+{{ include "clouddefense.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -52,17 +52,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "falco.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "falco.name" . }}
+{{- define "clouddefense.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "clouddefense.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Renders a value that contains template.
 Usage:
-{{ include "falco.renderTemplate" ( dict "value" .Values.path.to.the.Value "context" $) }}
+{{ include "clouddefense.renderTemplate" ( dict "value" .Values.path.to.the.Value "context" $) }}
 */}}
-{{- define "falco.renderTemplate" -}}
+{{- define "clouddefense.renderTemplate" -}}
     {{- if typeIs "string" .value }}
         {{- tpl .value .context }}
     {{- else }}
@@ -73,18 +73,18 @@ Usage:
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "falco.serviceAccountName" -}}
+{{- define "clouddefense.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "falco.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "clouddefense.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
 
 {{/*
-Return the proper Falco image name
+Return the proper CloudDefense image name
 */}}
-{{- define "falco.image" -}}
+{{- define "clouddefense.image" -}}
 {{- with .Values.image.registry -}}
     {{- . }}/
 {{- end -}}
@@ -93,9 +93,9 @@ Return the proper Falco image name
 {{- end -}}
 
 {{/*
-Return the proper Falco driver loader image name
+Return the proper CloudDefense driver loader image name
 */}}
-{{- define "falco.driverLoader.image" -}}
+{{- define "clouddefense.driverLoader.image" -}}
 {{- with .Values.driver.loader.initContainer.image.registry -}}
     {{- . }}/
 {{- end -}}
@@ -104,18 +104,18 @@ Return the proper Falco driver loader image name
 {{- end -}}
 
 {{/*
-Return the proper Falcoctl image name
+Return the proper clouddefensectl image name
 */}}
-{{- define "falcoctl.image" -}}
-{{ printf "%s/%s:%s" .Values.falcoctl.image.registry .Values.falcoctl.image.repository .Values.falcoctl.image.tag }}
+{{- define "clouddefensectl.image" -}}
+{{ printf "%s/%s:%s" .Values.clouddefensectl.image.registry .Values.clouddefensectl.image.repository .Values.clouddefensectl.image.tag }}
 {{- end -}}
 
 {{/*
 Extract the unixSocket's directory path
 */}}
-{{- define "falco.unixSocketDir" -}}
-{{- if and .Values.falco.grpc.enabled .Values.falco.grpc.bind_address (hasPrefix "unix://" .Values.falco.grpc.bind_address) -}}
-{{- .Values.falco.grpc.bind_address | trimPrefix "unix://" | dir -}}
+{{- define "clouddefense.unixSocketDir" -}}
+{{- if and .Values.clouddefense.grpc.enabled .Values.clouddefense.grpc.bind_address (hasPrefix "unix://" .Values.clouddefense.grpc.bind_address) -}}
+{{- .Values.clouddefense.grpc.bind_address | trimPrefix "unix://" | dir -}}
 {{- end -}}
 {{- end -}}
 
@@ -131,42 +131,42 @@ Return the appropriate apiVersion for rbac.
 {{- end -}}
 
 {{/*
- Build http url for falcosidekick.
+ Build http url for clouddefensecollector.
 */}}
-{{- define "falcosidekick.url" -}}
-{{- if not .Values.falco.http_output.url -}}
-    {{- $falcoName := include "falco.fullname" . -}}
-    {{- $listenPort := .Values.falcosidekick.listenport | default "2801" -}}
-    {{- if .Values.falcosidekick.fullfqdn -}}
-       {{- printf "http://%s-falcosidekick.%s.svc.cluster.local:%s" $falcoName .Release.Namespace $listenPort -}}
+{{- define "clouddefensecollector.url" -}}
+{{- if not .Values.clouddefense.http_output.url -}}
+    {{- $clouddefenseName := include "clouddefense.fullname" . -}}
+    {{- $listenPort := .Values.clouddefensecollector.listenport | default "2801" -}}
+    {{- if .Values.clouddefensecollector.fullfqdn -}}
+       {{- printf "http://%s-clouddefensecollector.%s.svc.cluster.local:%s" $clouddefenseName .Release.Namespace $listenPort -}}
     {{- else -}}
-        {{- printf "http://%s-falcosidekick:%s" $falcoName $listenPort -}}
+        {{- printf "http://%s-clouddefensecollector:%s" $clouddefenseName $listenPort -}}
     {{- end -}}
 {{- else -}}
-    {{- .Values.falco.http_output.url -}}
+    {{- .Values.clouddefense.http_output.url -}}
 {{- end -}}
 {{- end -}}
 
 
 {{/*
-Set appropriate falco configuration if falcosidekick has been configured.
+Set appropriate clouddefense configuration if clouddefensecollector has been configured.
 */}}
-{{- define "falco.falcosidekickConfig" -}}
-{{- if .Values.falcosidekick.enabled  -}}
-    {{- $_ := set .Values.falco "json_output" true -}}
-    {{- $_ := set .Values.falco "json_include_output_property" true -}}
-    {{- $_ := set .Values.falco.http_output "enabled" true -}}
-    {{- $_ := set .Values.falco.http_output "url" (include "falcosidekick.url" .) -}}
+{{- define "clouddefense.clouddefensecollectorConfig" -}}
+{{- if .Values.clouddefensecollector.enabled  -}}
+    {{- $_ := set .Values.clouddefense "json_output" true -}}
+    {{- $_ := set .Values.clouddefense "json_include_output_property" true -}}
+    {{- $_ := set .Values.clouddefense.http_output "enabled" true -}}
+    {{- $_ := set .Values.clouddefense.http_output "url" (include "clouddefensecollector.url" .) -}}
 {{- end -}}
 {{- end -}}
 
 {{/*
-Get port from .Values.falco.grpc.bind_addres.
+Get port from .Values.clouddefense.grpc.bind_addres.
 */}}
 {{- define "grpc.port" -}}
-{{- $error := "unable to extract listenPort from .Values.falco.grpc.bind_address. Make sure it is in the correct format" -}}
-{{- if and .Values.falco.grpc.enabled .Values.falco.grpc.bind_address (not (hasPrefix "unix://" .Values.falco.grpc.bind_address)) -}}
-    {{- $tokens := split ":" .Values.falco.grpc.bind_address -}}
+{{- $error := "unable to extract listenPort from .Values.clouddefense.grpc.bind_address. Make sure it is in the correct format" -}}
+{{- if and .Values.clouddefense.grpc.enabled .Values.clouddefense.grpc.bind_address (not (hasPrefix "unix://" .Values.clouddefense.grpc.bind_address)) -}}
+    {{- $tokens := split ":" .Values.clouddefense.grpc.bind_address -}}
     {{- if $tokens._1 -}}
         {{- $tokens._1 -}}
     {{- else -}}
@@ -179,11 +179,11 @@ Get port from .Values.falco.grpc.bind_addres.
 
 {{/*
 Disable the syscall source if some conditions are met.
-By default the syscall source is always enabled in falco. If no syscall source is enabled, falco
+By default the syscall source is always enabled in clouddefense. If no syscall source is enabled, clouddefense
 exits. Here we check that no producers for syscalls event has been configured, and if true
 we just disable the sycall source.
 */}}
-{{- define "falco.configSyscallSource" -}}
+{{- define "clouddefense.configSyscallSource" -}}
 {{- $userspaceDisabled := true -}}
 {{- $gvisorDisabled := (not .Values.gvisor.enabled) -}}
 {{- $driverDisabled :=  (not .Values.driver.enabled) -}}
@@ -197,14 +197,14 @@ we just disable the sycall source.
 {{- end -}}
 
 {{/*
-We need the falco binary in order to generate the configuration for gVisor. This init container
-is deployed within the Falco pod when gVisor is enabled. The image is the same as the one of Falco we are
+We need the clouddefense binary in order to generate the configuration for gVisor. This init container
+is deployed within the CloudDefense pod when gVisor is enabled. The image is the same as the one of CloudDefense we are
 deploying and the configuration logic is a bash script passed as argument on the fly. This solution should
-be temporary and will stay here until we move this logic to the falcoctl tool.
+be temporary and will stay here until we move this logic to the clouddefensectl tool.
 */}}
-{{- define "falco.gvisor.initContainer" -}}
+{{- define "clouddefense.gvisor.initContainer" -}}
 - name: {{ .Chart.Name }}-gvisor-init
-  image: {{ include "falco.image" . }}
+  image: {{ include "clouddefense.image" . }}
   imagePullPolicy: {{ .Values.image.pullPolicy }}
   args:
     - /bin/bash
@@ -217,12 +217,12 @@ be temporary and will stay here until we move this logic to the falcoctl tool.
       root={{ .Values.gvisor.runsc.root }}
       config={{ .Values.gvisor.runsc.config }}
 
-      echo "* Configuring Falco+gVisor integration...".
+      echo "* Configuring CloudDefense+gVisor integration...".
       # Check if gVisor is configured on the node.
       echo "* Checking for /host${config} file..."
       if [[ -f /host${config} ]]; then
-          echo "* Generating the Falco configuration..."
-          /usr/bin/falco --gvisor-generate-config=${root}/falco.sock > /host${root}/pod-init.json
+          echo "* Generating the CloudDefense configuration..."
+          /usr/bin/clouddefense --gvisor-generate-config=${root}/clouddefense.sock > /host${root}/pod-init.json
           sed -E -i.orig '/"ignore_missing" : true,/d' /host${root}/pod-init.json
           if [[ -z $(grep pod-init-config /host${config}) ]]; then
             echo "* Updating the runsc config file /host${config}..."
@@ -230,14 +230,14 @@ be temporary and will stay here until we move this logic to the falcoctl tool.
           fi
           # Endpoint inside the container is different from outside, add
           # "/host" to the endpoint path inside the container.
-          echo "* Setting the updated Falco configuration to /gvisor-config/pod-init.json..."
+          echo "* Setting the updated CloudDefense configuration to /gvisor-config/pod-init.json..."
           sed 's/"endpoint" : "\/run/"endpoint" : "\/host\/run/' /host${root}/pod-init.json > /gvisor-config/pod-init.json
       else
           echo "* File /host${config} not found."
           echo "* Please make sure that the gVisor is configured in the current node and/or the runsc root and config file path are correct"
           exit -1
       fi
-      echo "* Falco+gVisor correctly configured."
+      echo "* CloudDefense+gVisor correctly configured."
       exit 0
   volumeMounts:
     - mountPath: /host{{ .Values.gvisor.runsc.path }}
@@ -248,68 +248,68 @@ be temporary and will stay here until we move this logic to the falcoctl tool.
     - mountPath: /host{{ .Values.gvisor.runsc.config }}
       name: runsc-config
     - mountPath: /gvisor-config
-      name: falco-gvisor-config
+      name: clouddefense-gvisor-config
 {{- end -}}
 
 
-{{- define "falcoctl.initContainer" -}}
-- name: falcoctl-artifact-install
-  image: {{ include "falcoctl.image" . }}
-  imagePullPolicy: {{ .Values.falcoctl.image.pullPolicy }}
+{{- define "clouddefensectl.initContainer" -}}
+- name: clouddefensectl-artifact-install
+  image: {{ include "clouddefensectl.image" . }}
+  imagePullPolicy: {{ .Values.clouddefensectl.image.pullPolicy }}
   args: 
     - artifact
     - install
-  {{- with .Values.falcoctl.artifact.install.args }}
+  {{- with .Values.clouddefensectl.artifact.install.args }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with .Values.falcoctl.artifact.install.resources }}
+  {{- with .Values.clouddefensectl.artifact.install.resources }}
   resources:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   securityContext:
-  {{- if .Values.falcoctl.artifact.install.securityContext }}
-    {{- toYaml .Values.falcoctl.artifact.install.securityContext | nindent 4 }}
+  {{- if .Values.clouddefensectl.artifact.install.securityContext }}
+    {{- toYaml .Values.clouddefensectl.artifact.install.securityContext | nindent 4 }}
   {{- end }}
   volumeMounts:
-    - mountPath: {{ .Values.falcoctl.config.artifact.install.pluginsDir }}
+    - mountPath: {{ .Values.clouddefensectl.config.artifact.install.pluginsDir }}
       name: plugins-install-dir
-    - mountPath: {{ .Values.falcoctl.config.artifact.install.rulesfilesDir }}
+    - mountPath: {{ .Values.clouddefensectl.config.artifact.install.rulesfilesDir }}
       name: rulesfiles-install-dir
     - mountPath: /etc/falcoctl
-      name: falcoctl-config-volume
+      name: clouddefensectl-config-volume
   env:
-  {{- if .Values.falcoctl.artifact.install.env }}
-  {{- include "falco.renderTemplate" ( dict "value" .Values.falcoctl.artifact.install.env "context" $) | nindent 4 }}
+  {{- if .Values.clouddefensectl.artifact.install.env }}
+  {{- include "clouddefense.renderTemplate" ( dict "value" .Values.clouddefensectl.artifact.install.env "context" $) | nindent 4 }}
   {{- end }}
 {{- end -}}
 
-{{- define "falcoctl.sidecar" -}}
-- name: falcoctl-artifact-follow
-  image: {{ include "falcoctl.image" . }}
-  imagePullPolicy: {{ .Values.falcoctl.image.pullPolicy }}
+{{- define "clouddefensectl.sidecar" -}}
+- name: clouddefensectl-artifact-follow
+  image: {{ include "clouddefensectl.image" . }}
+  imagePullPolicy: {{ .Values.clouddefensectl.image.pullPolicy }}
   args:
     - artifact
     - follow
-  {{- with .Values.falcoctl.artifact.follow.args }}
+  {{- with .Values.clouddefensectl.artifact.follow.args }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with .Values.falcoctl.artifact.follow.resources }}
+  {{- with .Values.clouddefensectl.artifact.follow.resources }}
   resources:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   securityContext:
-  {{- if .Values.falcoctl.artifact.follow.securityContext }}
-    {{- toYaml .Values.falcoctl.artifact.follow.securityContext | nindent 4 }}
+  {{- if .Values.clouddefensectl.artifact.follow.securityContext }}
+    {{- toYaml .Values.clouddefensectl.artifact.follow.securityContext | nindent 4 }}
   {{- end }}
   volumeMounts:
-    - mountPath: {{ .Values.falcoctl.config.artifact.follow.pluginsDir }}
+    - mountPath: {{ .Values.clouddefensectl.config.artifact.follow.pluginsDir }}
       name: plugins-install-dir
-    - mountPath: {{ .Values.falcoctl.config.artifact.follow.rulesfilesDir }}
+    - mountPath: {{ .Values.clouddefensectl.config.artifact.follow.rulesfilesDir }}
       name: rulesfiles-install-dir
     - mountPath: /etc/falcoctl
-      name: falcoctl-config-volume
+      name: clouddefensectl-config-volume
   env:
-  {{- if .Values.falcoctl.artifact.follow.env }}
-  {{- include "falco.renderTemplate" ( dict "value" .Values.falcoctl.artifact.follow.env "context" $) | nindent 4 }}
+  {{- if .Values.clouddefensectl.artifact.follow.env }}
+  {{- include "clouddefense.renderTemplate" ( dict "value" .Values.clouddefensectl.artifact.follow.env "context" $) | nindent 4 }}
   {{- end }}
 {{- end -}}

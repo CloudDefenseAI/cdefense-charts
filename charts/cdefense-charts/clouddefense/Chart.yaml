@@ -1,8 +1,8 @@
 apiVersion: v2
-name: falco
+name: clouddefense
 version: 3.1.0
 appVersion: 0.34.1
-description: Falco
+description: CloudDefense
 keywords:
   - monitoring
   - security
@@ -10,15 +10,15 @@ keywords:
   - metric
   - troubleshooting
   - run-time
-home: https://falco.org
-icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/falco/horizontal/color/falco-horizontal-color.svg
+home: https://clouddefense.org
+icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/clouddefense/horizontal/color/clouddefense-horizontal-color.svg
 sources:
-  - https://github.com/falcosecurity/falco
+  - https://github.com/clouddefensesecurity/clouddefense
 maintainers:
-  - name: The Falco Authors
-    email: cncf-falco-dev@lists.cncf.io
+  - name: The CloudDefense Authors
+    email: cncf-clouddefense-dev@lists.cncf.io
 # dependencies:
-#   - name: falcosidekick
+#   - name: clouddefensecollector
 #     version: "0.5.16"
-#     condition: falcosidekick.enabled
-#     repository: https://falcosecurity.github.io/charts
+#     condition: clouddefensecollector.enabled
+#     repository: https://clouddefensesecurity.github.io/charts
