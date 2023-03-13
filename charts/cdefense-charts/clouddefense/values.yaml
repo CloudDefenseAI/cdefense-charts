@@ -345,7 +345,7 @@ clouddefensectl:
     # -- Runs "clouddefensectl artifact install" command as an init container. It is used to install artfacts before
     # clouddefense starts. It provides them to clouddefense by using an emptyDir volume.
     install:
-      enabled: true
+      enabled: false
       # -- Extra environment variables that will be pass onto clouddefensectl-artifact-install init container.
       env: {}
       # -- Arguments to pass to the clouddefensectl-artifact-install init container.
@@ -360,7 +360,7 @@ clouddefensectl:
     # correct folder by clouddefensectl. To prevent new versions of artifacts from breaking clouddefense, the tool checks if it is compatible
     # with the running version of clouddefense before installing it.
     follow:
-      enabled: true
+      enabled: false
       # -- Extra environment variables that will be pass onto clouddefensectl-artifact-follow sidecar container.
       env: {}
       # -- Arguments to pass to the clouddefensectl-artifact-follow sidecar container.
