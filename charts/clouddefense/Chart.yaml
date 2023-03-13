@@ -17,8 +17,8 @@ sources:
 maintainers:
   - name: The CloudDefense Authors
     email: cncf-clouddefense-dev@lists.cncf.io
-# dependencies:
-#   - name: clouddefensecollector
-#     version: "0.5.16"
-#     condition: clouddefensecollector.enabled
-#     repository: https://clouddefenseai.github.io/cdefense-charts/
+dependencies:
+  - name: clouddefensecollector
+    version: "0.5.16"
+    condition: clouddefensecollector.enabled
+    repository: https://clouddefenseai.github.io/cdefense-charts/
