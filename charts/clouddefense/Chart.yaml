@@ -1,6 +1,6 @@
 apiVersion: v2
 name: clouddefense
-version: 3.1.0.1
+version: 3.1.2
 appVersion: 0.34.1
 description: CloudDefense
 keywords:
