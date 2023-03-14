@@ -35,6 +35,34 @@ entries:
   clouddefense:
   - apiVersion: v2
     appVersion: 0.34.1
+    created: "2023-03-14T03:55:09.718667029Z"
+    dependencies:
+    - condition: clouddefensecollector.enabled
+      name: clouddefensecollector
+      repository: https://clouddefenseai.github.io/cdefense-charts/
+      version: 0.5.16
+    description: CloudDefense
+    digest: 4e3645515a91bfac9755430a68ef654c8969d8182f896216190f20fc931714e0
+    home: https://clouddefense.org
+    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/clouddefense/horizontal/color/clouddefense-horizontal-color.svg
+    keywords:
+    - monitoring
+    - security
+    - alerting
+    - metric
+    - troubleshooting
+    - run-time
+    maintainers:
+    - email: cncf-clouddefense-dev@lists.cncf.io
+      name: The CloudDefense Authors
+    name: clouddefense
+    sources:
+    - https://github.com/clouddefensesecurity/clouddefense
+    urls:
+    - https://github.com/CloudDefenseAI/cdefense-charts/releases/download/clouddefense-3.1.1/clouddefense-3.1.1.tgz
+    version: 3.1.1
+  - apiVersion: v2
+    appVersion: 0.34.1
     created: "2023-03-13T06:28:29.315960973Z"
     description: CloudDefense
     digest: 09db7fee92bcc94882ccd25f13e0ecc3d7e5476bac8ce0edc06090609a53bc20
@@ -57,6 +85,26 @@ entries:
     - https://github.com/CloudDefenseAI/cdefense-charts/releases/download/clouddefense-3.1.0/clouddefense-3.1.0.tgz
     version: 3.1.0
   clouddefensecollector:
+  - apiVersion: v1
+    appVersion: 2.27.0
+    created: "2023-03-14T03:55:09.993686872Z"
+    description: Connect CloudDefense to your ecosystem
+    digest: e4c59ab0537e276b3d213e5d081dc168750e509c2f92b6461c43788af9dd49a2
+    home: https://github.com/clouddefensesecurity/clouddefensecollector
+    icon: https://raw.githubusercontent.com/clouddefensesecurity/clouddefensecollector/master/imgs/clouddefensecollector_color.png
+    keywords:
+    - monitoring
+    - security
+    - alerting
+    maintainers:
+    - email: cncf-clouddefense-dev@lists.cncf.io
+      name: Issif
+    name: clouddefensecollector
+    sources:
+    - https://github.com/clouddefensesecurity/clouddefensecollector
+    urls:
+    - https://github.com/CloudDefenseAI/cdefense-charts/releases/download/clouddefensecollector-0.5.18/clouddefensecollector-0.5.18.tgz
+    version: 0.5.18
   - apiVersion: v1
     appVersion: 2.27.0
     created: "2023-03-13T06:41:32.284085451Z"
@@ -97,4 +145,4 @@ entries:
     urls:
     - https://github.com/CloudDefenseAI/cdefense-charts/releases/download/clouddefensecollector-0.5.16/clouddefensecollector-0.5.16.tgz
     version: 0.5.16
-generated: "2023-03-13T06:41:32.28412035Z"
+generated: "2023-03-14T03:55:09.993707372Z"
