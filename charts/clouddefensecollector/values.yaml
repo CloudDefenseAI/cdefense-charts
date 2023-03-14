@@ -849,7 +849,7 @@ webui:
 
   service:
     # -- The web UI service type
-    type: NodePort
+    type: ClusterIP
     # -- The web UI service port dor the clouddefensecollector-ui
     port: 2802
     # -- The web UI service nodePort
