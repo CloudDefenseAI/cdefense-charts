@@ -372,7 +372,7 @@ kubectl logs -n clouddefense clouddefense-64484d9579-qckms
 In the logs you should have something similar to the following, indcating that CloudDefense has loaded the required plugins:
 ```bash
 Fri Jul  8 16:07:24 2022: CloudDefense version 0.32.0 (driver version 39ae7d40496793cf3d3e7890c9bbdc202263836b)
-Fri Jul  8 16:07:24 2022: CloudDefense initialized with configuration file /etc/clouddefense/clouddefense.yaml
+Fri Jul  8 16:07:24 2022: CloudDefense initialized with configuration file /etc/clouddefense/falco.yaml
 Fri Jul  8 16:07:24 2022: Loading plugin (k8saudit) from file /usr/share/clouddefense/plugins/libk8saudit.so
 Fri Jul  8 16:07:24 2022: Loading plugin (json) from file /usr/share/clouddefense/plugins/libjson.so
 Fri Jul  8 16:07:24 2022: Loading rules from file /etc/clouddefense/k8s_audit_rules.yaml:

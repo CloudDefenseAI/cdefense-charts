@@ -406,7 +406,7 @@ clouddefensectl:
         pluginsDir: /plugins
 
 ######################
-# clouddefense.yaml config  #
+# falco.yaml config  #
 ######################
 clouddefense:
 # File(s) or Directories containing clouddefense rules, loaded at startup.

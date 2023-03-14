@@ -6,6 +6,6 @@ metadata:
   labels:
     {{- include "clouddefense.labels" . | nindent 4 }}
 data:
-  clouddefense.yaml: |-
+  falco.yaml: |-
     {{- include "clouddefense.clouddefensecollectorConfig" . }}
     {{- toYaml .Values.clouddefense | nindent 4 }}

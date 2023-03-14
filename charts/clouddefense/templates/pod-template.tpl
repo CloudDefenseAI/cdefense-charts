@@ -189,9 +189,9 @@ spec:
         {{- end }}
         {{- end }}
         {{- end }}
-        - mountPath: /etc/falco/clouddefense.yaml
+        - mountPath: /etc/falco/falco.yaml
           name: falco-yaml
-          subPath: clouddefense.yaml
+          subPath: falco.yaml
         {{- if .Values.customRules }}
         - mountPath: /etc/falco/rules.d
           name: rules-volume
@@ -319,8 +319,8 @@ spec:
       configMap:
         name: {{ include "clouddefense.fullname" . }}
         items:
-        - key: clouddefense.yaml
-          path: clouddefense.yaml
+        - key: falco.yaml
+          path: falco.yaml
     {{- if .Values.customRules }}
     - name: rules-volume
       configMap:
