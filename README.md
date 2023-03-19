@@ -1,4 +1,4 @@
-# How to Install CloudDefense suite on a Kubernetes cluster
+# How to Install CloudDefenseAI suite on a Kubernetes cluster
 
 ## Pre-requisites
 
