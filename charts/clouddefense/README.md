@@ -1,14 +1,14 @@
-# CloudDefense
+# CloudDefenseAI
 
-[CloudDefense](https://clouddefense.org) is a *Cloud Native Runtime Security* tool designed to detect anomalous activity in your applications. You can use CloudDefense to monitor runtime security of your Kubernetes applications and internal components.
+[CloudDefenseAI](https://clouddefense.ai) is a *Cloud Native Runtime Security* tool designed to detect anomalous activity in your applications. You can use CloudDefense to monitor runtime security of your Kubernetes applications and internal components.
 
 ## Introduction
 
-The deployment of CloudDefense in a Kubernetes cluster is managed through a **Helm chart**. This chart manages the lifecycle of CloudDefense in a cluster by handling all the k8s objects needed by CloudDefense to be seamlessly integrated in your environment. Based on the configuration in `values.yaml` file, the chart will render and install the required k8s objects. Keep in mind that CloudDefense could be deployed in your cluster using a `daemonset` or a `deployment`. See next sections for more info.
+The deployment of CloudDefenseAI in a Kubernetes cluster is managed through a **Helm chart**. This chart manages the lifecycle of CloudDefenseAI in a cluster by handling all the k8s objects needed by CloudDefenseAI to be seamlessly integrated in your environment. Based on the configuration in `values.yaml` file, the chart will render and install the required k8s objects. Keep in mind that CloudDefenseAI could be deployed in your cluster using a `daemonset` or a `deployment`. See next sections for more info.
 
 ## Attention
 
-Before installing CloudDefense in a Kubernetes cluster, a user should check that the kernel version used in the nodes is supported by the community. Also, before reporting any issue with CloudDefense (missing kernel image, CrashLoopBackOff and similar), make sure to read [about the driver](#about-the-driver) section and adjust your setup as required.
+Before installing CloudDefenseAI in a Kubernetes cluster, a user should check that the kernel version used in the nodes is supported by the community. Also, before reporting any issue with CloudDefenseAI (missing kernel image, CrashLoopBackOff and similar), make sure to read [about the driver](#about-the-driver) section and adjust your setup as required.
 
 ## Adding `clouddefensesecurity` repository
 
@@ -39,17 +39,17 @@ clouddefense-57w7q   1/1     Running   0          3m12s   10.244.0.1   control-p
 clouddefense-h4596   1/1     Running   0          3m12s   10.244.1.2   worker-node-1   <none>           <none>
 clouddefense-kb55h   1/1     Running   0          3m12s   10.244.2.3   worker-node-2   <none>           <none>
 ```
-The cluster in our example has three nodes, one *control-plane* node and two *worker* nodes. The default configuration in `values.yaml` of our helm chart deploys CloudDefense using a `daemonset`. That's the reason why we have one CloudDefense pod in each node. 
+The cluster in our example has three nodes, one *control-plane* node and two *worker* nodes. The default configuration in `values.yaml` of our helm chart deploys CloudDefenseAI using a `daemonset`. That's the reason why we have one CloudDefense pod in each node. 
 > **Tip**: List CloudDefense release using `helm list -n clouddefense`, a release is a name used to track a specific deployment
 
-### CloudDefense, Event Sources and Kubernetes
-Starting from CloudDefense 0.31.0 the [new plugin system](https://clouddefense.org/docs/plugins/) is stable and production ready. The **plugin system** can be seen as the next step in the evolution of CloudDefense. Historically, CloudDefense monitored system events from the **kernel** trying to detect malicious behaviors on Linux systems. It also had the capability to process k8s Audit Logs to detect suspicious activities in Kubernetes clusters. Since CloudDefense 0.32.0 all the related code to the k8s Audit Logs in CloudDefense was removed and ported in a [plugin](https://github.com/clouddefensesecurity/plugins/tree/master/plugins/k8saudit). At the time being CloudDefense supports different event sources coming from **plugins** or **drivers** (system events). 
+### CloudDefenseAI, Event Sources and Kubernetes
+Starting from CloudDefenseAI 0.31.0 the [new plugin system](https://clouddefense.ai/docs/plugins/) is stable and production ready. The **plugin system** can be seen as the next step in the evolution of CloudDefenseAI. Historically, CloudDefenseAI monitored system events from the **kernel** trying to detect malicious behaviors on Linux systems. It also had the capability to process k8s Audit Logs to detect suspicious activities in Kubernetes clusters. Since CloudDefenseAI 0.32.0 all the related code to the k8s Audit Logs in CloudDefenseAI was removed and ported in a [plugin](https://github.com/clouddefensesecurity/plugins/tree/master/plugins/k8saudit). At the time being CloudDefenseAI supports different event sources coming from **plugins** or **drivers** (system events). 
 
-Note that **a CloudDefense instance can handle multiple event sources in parallel**. you can deploy CloudDefense leveraging **drivers** for syscalls events and at the same time loading **plugins**. A step by step guide on how to deploy CloudDefense with multiple sources can be found [here](https://clouddefense.org/docs/getting-started/third-party/learning/#clouddefense-with-multiple-sources).
+Note that **a CloudDefenseAI instance can handle multiple event sources in parallel**. you can deploy CloudDefenseAI leveraging **drivers** for syscalls events and at the same time loading **plugins**. A step by step guide on how to deploy CloudDefenseAI with multiple sources can be found [here](https://clouddefense.ai/docs/getting-started/third-party/learning/#clouddefense-with-multiple-sources).
 
 #### About Drivers
 
-CloudDefense needs a **driver** to analyze the system workload and pass security events to userspace. The supported drivers are:
+CloudDefenseAI needs a **driver** to analyze the system workload and pass security events to userspace. The supported drivers are:
 
 * [Kernel module](https://clouddefense.org/docs/event-sources/drivers/#kernel-module) 
 * [eBPF probe](https://clouddefense.org/docs/event-sources/drivers/#ebpf-probe)
